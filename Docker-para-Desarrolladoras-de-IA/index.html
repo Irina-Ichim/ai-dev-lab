@@ -396,7 +396,7 @@
     <h3>El Archivo .dockerignore (Obligatorio)</h3>
     
     <div class="info-box warning">
-        <div class="info-box-title">⚠️ Consejo de Mentora</div>
+        <div class="info-box-title">⚠️ Consejo</div>
         <strong>¡Nunca metáis la carpeta <code>node_modules</code> ni el <code>/target</code> de Java dentro de la imagen!</strong> Eso hace que la imagen pese gigas y sea lentísima.
     </div>
     
@@ -1267,46 +1267,7 @@ build
 dist
 </code>
         </div>
-    </div>
-    
-    <div class="antipattern">
-        <div class="antipattern-title">5. 🔄 Usar :latest en Producción</div>
-        
-        <div class="antipattern-grid">
-            <div class="antipattern-item">
-                <strong>Error:</strong><br>
-                <code>FROM postgres:latest</code>
-            </div>
-            <div class="antipattern-item">
-                <strong>Por qué está mal:</strong><br>
-                "latest" cambia con el tiempo. Tu app puede romperse sin previo aviso
-            </div>
-            <div class="antipattern-item">
-                <strong>Solución:</strong><br>
-                Usa versiones específicas: <code>postgres:15-alpine</code>
-            </div>
-        </div>
-    </div>
-    
-    <div class="antipattern">
-        <div class="antipattern-title">6. 🗑️ No limpiar imágenes antiguas</div>
-        
-        <div class="antipattern-grid">
-            <div class="antipattern-item">
-                <strong>Error:</strong><br>
-                Nunca ejecutar <code>docker system prune</code>
-            </div>
-            <div class="antipattern-item">
-                <strong>Por qué está mal:</strong><br>
-                Docker acumula gigas de imágenes huérfanas
-            </div>
-            <div class="antipattern-item">
-                <strong>Solución:</strong><br>
-                Limpia regularmente con <code>docker system prune -a</code>
-            </div>
-        </div>
-    </div>
-    
+    </div> 
     <div class="antipattern">
         <div class="antipattern-title">5. 🔄 Usar :latest en Producción</div>
         
