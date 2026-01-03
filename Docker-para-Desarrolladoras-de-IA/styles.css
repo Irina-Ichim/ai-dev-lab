@@ -459,31 +459,43 @@
             font-family: monospace;
         }
 
-        /* PDF Download Button */
-        .pdf-button {
-            background: white;
-            color: var(--primary);
-            border: 3px solid white;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .pdf-button:hover {
-            background: var(--primary);
+        /* Botón Volver Arriba */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            border: none;
+            border-radius: 50%;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
         }
 
-        .pdf-button:active {
-            transform: translateY(-1px);
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-2px);
         }
 
         @media print {
@@ -495,7 +507,7 @@
                 page-break-inside: avoid;
             }
 
-            .pdf-button {
+            .back-to-top {
                 display: none;
             }
         }

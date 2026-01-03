@@ -21,10 +21,12 @@
         Full-Stack Developer & Tech Lead<br>
         <time datetime="2026-01">Enero 2026</time>
     </address>
-    <button type="button" id="downloadPdf" class="pdf-button">
-        📄 Descargar PDF
-    </button>
 </header>
+
+<!-- Botón Flotante Volver Arriba -->
+<button type="button" id="backToTop" class="back-to-top" title="Volver arriba">
+    ↑
+</button>
 
 <!-- ÍNDICE -->
 <nav class="toc">
@@ -1582,20 +1584,24 @@ de Spring Boot que la consume."
 </footer>
 
 <script>
-    document.getElementById('downloadPdf').addEventListener('click', function() {
-        // Cambiar el texto del botón mientras se procesa
-        const originalText = this.textContent;
-        this.textContent = '⏳ Generando PDF...';
-        this.disabled = true;
+    // Botón Volver Arriba
+    const backToTopButton = document.getElementById('backToTop');
 
-        // Usar la función de impresión del navegador para generar PDF
-        setTimeout(() => {
-            window.print();
+    // Mostrar/ocultar el botón basado en el scroll
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
 
-            // Restaurar el botón
-            this.textContent = originalText;
-            this.disabled = false;
-        }, 500);
+    // Scroll suave al hacer clic
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
 </script>
 
