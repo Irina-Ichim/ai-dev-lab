@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker para Desarrolladoras de IA - Irina Ichim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Asap+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- PORTADA -->
+<header class="cover">
+    <figure class="logo">🐳</figure>
+    <h1>Docker para Desarrolladoras de IA</h1>
+    <p class="subtitle">De Junior a Pro: Controlando tus entornos de ejecución</p>
+    <address class="author">
+        Creado por <strong>Irina Ichim</strong><br>
+        Full-Stack Developer & Tech Lead<br>
+        <time datetime="2026-01">Enero 2026</time>
+    </address>
+</header>
+
+<!-- ÍNDICE -->
+<nav class="toc">
+    <h2>📚 Índice</h2>
+    
+    <a href="#section-1" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">1</span>
+                <span>¿Por qué Docker? El problema que resuelve</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-2" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">2</span>
+                <span>Vocabulario Docker: Conceptos Fundamentales</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-3" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">3</span>
+                <span>Comandos Esenciales: Tu Kit de Herramientas</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-4" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">4</span>
+                <span>Entornos: Windows, Mac y Linux</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-5" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">5</span>
+                <span>Hands-on Java: Dockerfile Multietapa</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-6" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">6</span>
+                <span>Hands-on React: Dockerfile con Nginx</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-7" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">7</span>
+                <span>Orquestación: Docker Compose</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-8" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">8</span>
+                <span>Networking y CORS: Conectando Servicios</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-9" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">9</span>
+                <span>Antipatrones: Errores Comunes</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-10" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">10</span>
+                <span>IA como Copilot: Prompts Útiles</span>
+            </div>
+        </div>
+    </a>
+    
+    <a href="#section-11" style="text-decoration: none; color: inherit;">
+        <div class="toc-item">
+            <div style="display: flex; align-items: center;">
+                <span class="toc-number">11</span>
+                <span>Checklist de Producción</span>
+            </div>
+        </div>
+    </a>
+</nav>
+
+<!-- SECCIÓN 1: POR QUÉ DOCKER -->
+<section class="section" id="section-1">
+    <h2>1. ¿Por qué Docker? 🤔</h2>
+
+    <blockquote class="highlight">
+        Docker no es una herramienta de 'infraestructura', es una herramienta de desarrollo. Si sabes Docker, tu valor en el mercado se multiplica porque eres capaz de entregar software que funciona, no solo código que compila.
+    </blockquote>
+    
+    <h3>El Problema Real</h3>
+    
+    <p>El ecosistema Java es robusto pero pesado, y el de React es ligero pero volátil (las versiones de Node son un caos).</p>
+    
+    <div class="info-box info">
+        <div class="info-box-title">💡 Para Java</div>
+        Se acabó el "instalar el JDK 17, configurar el Maven, las variables de entorno...". Ahora el JDK vive dentro del contenedor.
+    </div>
+    
+    <div class="info-box info">
+        <div class="info-box-title">⚛️ Para React</div>
+        Olvidaos de los conflictos de versiones de npm. El contenedor tiene la versión exacta de Node que vuestra app necesita.
+    </div>
+    
+    <div class="info-box info">
+        <div class="info-box-title">🤖 En IA</div>
+        Si vuestro backend de Java llama a un servicio de IA, Docker asegura que esa conexión (API) funcione igual en local que en la nube.
+    </div>
+    
+    <h3>La Tabla de la Verdad: Antes vs. Después</h3>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Situación</th>
+                <th>Antes (Sin Docker)</th>
+                <th>Ahora (Con Docker)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Nueva compañera se une</strong></td>
+                <td>Tarda 1 día configurando Java, Maven, Node...</td>
+                <td>Hace <code>docker-compose up</code> y empieza en 5 min</td>
+            </tr>
+            <tr>
+                <td><strong>Versiones de Node</strong></td>
+                <td>"Uf, tengo la 16 y el proyecto pide la 20"</td>
+                <td>El contenedor ya trae la 20. Cero conflictos</td>
+            </tr>
+            <tr>
+                <td><strong>Base de Datos</strong></td>
+                <td>"Se me olvidó cómo se instalaba Postgres en Windows"</td>
+                <td>Una línea en el Compose y ya tienes DB</td>
+            </tr>
+            <tr>
+                <td><strong>Despliegue</strong></td>
+                <td>"En mi ordenador funcionaba, no sé por qué falla"</td>
+                <td>Si funciona en el contenedor, funciona en la nube</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- SECCIÓN 2: VOCABULARIO -->
+<section class="section" id="section-2">
+    <h2>2. Vocabulario Docker 📖</h2>
+    
+    <p>Antes de empezar a construir, necesitas entender estos conceptos fundamentales:</p>
+    
+    <dl class="vocab-grid">
+        <article class="vocab-card">
+            <span class="vocab-icon">📦</span>
+            <dt class="vocab-term">Imagen (Image)</dt>
+            <dd><strong>La Receta.</strong> Es una plantilla inmutable que contiene todo lo necesario para ejecutar tu aplicación: código, runtime, librerías, configuración.</dd>
+            <dd style="margin-top: 10px; color: #64748b; font-style: italic;">Ejemplo: "node:18-alpine" es una imagen oficial de Node.js</dd>
+        </article>
+
+        <article class="vocab-card">
+            <span class="vocab-icon">🏃‍♀️</span>
+            <dt class="vocab-term">Contenedor (Container)</dt>
+            <dd><strong>El Plato Servido.</strong> Es una instancia en ejecución de una imagen. Puedes tener múltiples contenedores de la misma imagen corriendo simultáneamente.</dd>
+            <dd style="margin-top: 10px; color: #64748b; font-style: italic;">Ejemplo: Tu backend de Java corriendo en el puerto 8080</dd>
+        </article>
+
+        <article class="vocab-card">
+            <span class="vocab-icon">💾</span>
+            <dt class="vocab-term">Volumen (Volume)</dt>
+            <dd><strong>El Almacén Persistente.</strong> Espacio de almacenamiento que sobrevive cuando el contenedor se detiene. Crucial para bases de datos.</dd>
+            <dd style="margin-top: 10px; color: #64748b; font-style: italic;">Ejemplo: Los datos de PostgreSQL que no quieres perder</dd>
+        </article>
+
+        <article class="vocab-card">
+            <span class="vocab-icon">🌐</span>
+            <dt class="vocab-term">Network (Red)</dt>
+            <dd><strong>El Sistema de Comunicación.</strong> Permite que los contenedores se hablen entre sí usando nombres en lugar de IPs.</dd>
+            <dd style="margin-top: 10px; color: #64748b; font-style: italic;">Ejemplo: El frontend puede llamar a "backend:8080"</dd>
+        </article>
+
+        <article class="vocab-card">
+            <span class="vocab-icon">📝</span>
+            <dt class="vocab-term">Dockerfile</dt>
+            <dd><strong>El Libro de Instrucciones.</strong> Archivo de texto que define cómo construir una imagen. Cada línea es un paso.</dd>
+            <dd style="margin-top: 10px; color: #64748b; font-style: italic;">Ejemplo: FROM, COPY, RUN, CMD son instrucciones</dd>
+        </article>
+
+        <article class="vocab-card">
+            <span class="vocab-icon">🎼</span>
+            <dt class="vocab-term">Docker Compose</dt>
+            <dd><strong>El Director de Orquesta.</strong> Archivo YAML que define y ejecuta aplicaciones multi-contenedor con un solo comando.</dd>
+            <dd style="margin-top: 10px; color: #64748b; font-style: italic;">Ejemplo: Levanta DB + Backend + Frontend de una vez</dd>
+        </article>
+    </dl>
+    
+    <figure class="diagram">
+        <figcaption class="diagram-title">🔄 Flujo: De Imagen a Contenedor</figcaption>
+        <div class="flow-container">
+            <div class="flow-item">
+                <div style="font-size: 2em;">📄</div>
+                <div><strong>Dockerfile</strong></div>
+                <div style="font-size: 0.9em; color: #64748b;">Instrucciones</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">
+                <div style="font-size: 2em;">🏗️</div>
+                <div><strong>docker build</strong></div>
+                <div style="font-size: 0.9em; color: #64748b;">Construcción</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">
+                <div style="font-size: 2em;">📦</div>
+                <div><strong>Imagen</strong></div>
+                <div style="font-size: 0.9em; color: #64748b;">Plantilla</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">
+                <div style="font-size: 2em;">▶️</div>
+                <div><strong>docker run</strong></div>
+                <div style="font-size: 0.9em; color: #64748b;">Ejecución</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">
+                <div style="font-size: 2em;">🏃‍♀️</div>
+                <div><strong>Contenedor</strong></div>
+                <div style="font-size: 0.9em; color: #64748b;">App corriendo</div>
+            </div>
+        </div>
+    </figure>
+</section>
+
+<!-- SECCIÓN 3: COMANDOS -->
+<section class="section" id="section-3">
+    <h2>3. Comandos Esenciales 🛠️</h2>
+    
+    <h3>Comandos Básicos</h3>
+    
+    <div class="command-table">
+        <div class="command-row">
+            <div class="command">docker build -t mi-modelo .</div>
+            <div>Construye la imagen (cocina la receta). El <code>.</code> indica "usa el Dockerfile del directorio actual"</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker run -p 8080:8080 mi-modelo</div>
+            <div>Lanza el contenedor (sirve el plato). <code>-p</code> mapea puertos: puerto_host:puerto_contenedor</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker ps</div>
+            <div>¿Qué está pasando ahora mismo? Lista los contenedores en ejecución</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker ps -a</div>
+            <div>Lista TODOS los contenedores (incluyendo los detenidos)</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker exec -it &lt;id&gt; bash</div>
+            <div>"Entrar" dentro del contenedor para cotillear. <code>-it</code> = modo interactivo con terminal</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker logs -f &lt;nombre&gt;</div>
+            <div>Para ver por qué el Spring Boot está lanzando un error. <code>-f</code> = seguir logs en tiempo real</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker compose up --build</div>
+            <div>Levanta el Backend (Java) y el Frontend (React) a la vez. <code>--build</code> reconstruye las imágenes</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker compose down -v</div>
+            <div>El "borrón y cuenta nueva". Detiene contenedores y borra volúmenes</div>
+        </div>
+    </div>
+    
+    <h3>Gestión de Limpieza (Para no quedarse sin disco)</h3>
+    
+    <div class="info-box warning">
+        <div class="info-box-title">⚠️ Importante: Docker ocupa espacio</div>
+        Con el tiempo, Docker acumula imágenes, contenedores detenidos y volúmenes huérfanos. Tu disco puede llenarse rápidamente.
+    </div>
+    
+    <div class="command-table">
+        <div class="command-row">
+            <div class="command">docker system prune -a</div>
+            <div><strong>El botón nuclear.</strong> Borra todo lo que no se esté usando (imágenes, redes y caché). Úsalo cuando Docker diga que no tiene espacio</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker volume ls</div>
+            <div>Lista todos los volúmenes existentes</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker volume prune</div>
+            <div>Limpia volúmenes que no están siendo usados por ningún contenedor</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker images</div>
+            <div>Muestra todas las imágenes descargadas y su tamaño</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker rmi &lt;imagen&gt;</div>
+            <div>Elimina una imagen específica</div>
+        </div>
+    </div>
+    
+    <h3>Inspección (Para cuando algo falla)</h3>
+    
+    <div class="command-table">
+        <div class="command-row">
+            <div class="command">docker inspect &lt;nombre&gt;</div>
+            <div>Te da un JSON gigante con TODA la info (IPs, rutas, variables de entorno)</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker stats</div>
+            <div>Para ver cuánta RAM y CPU está consumiendo tu Java (¡Spring Boot a veces tiene hambre de RAM!)</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker top &lt;nombre&gt;</div>
+            <div>Para ver los procesos que corren dentro del contenedor sin entrar en él</div>
+        </div>
+    </div>
+    
+    <h3>Comandos de "Pánico" (Para cuando algo no va bien)</h3>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">💡 Tip de Debugging</div>
+        Si el backend no conecta, haz un <code>docker exec -it backend-java ping database</code>. Si el ping falla, es la red. Si el ping funciona, es tu <code>application.properties</code>
+    </div>
+    
+    <div class="info-box info">
+        <div class="info-box-title">🔧 Herramientas Visuales</div>
+        Herramientas como <strong>LazyDocker</strong> o la <strong>extensión de Docker para VS Code</strong> ayudan mucho al principio. Ver los contenedores en una lista visual es más intuitivo que memorizar comandos.
+    </div>
+</section>
+
+<!-- NUEVA SECCIÓN: ESTRUCTURA DEL PROYECTO -->
+<section class="section">
+    <h2>3.5 Preparando el Proyecto 📁</h2>
+    
+    <h3>El Archivo .dockerignore (Obligatorio)</h3>
+    
+    <div class="info-box warning">
+        <div class="info-box-title">⚠️ Consejo de Mentora</div>
+        <strong>¡Nunca metáis la carpeta <code>node_modules</code> ni el <code>/target</code> de Java dentro de la imagen!</strong> Eso hace que la imagen pese gigas y sea lentísima.
+    </div>
+    
+    <p>Igual que el <code>.gitignore</code>, el <code>.dockerignore</code> es vital. Le dice a Docker qué archivos NO copiar durante el build.</p>
+    
+    <div class="code-block">
+<code><span class="code-comment"># .dockerignore para proyecto Java + React</span>
+
+<span class="code-comment"># Node.js</span>
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm
+
+<span class="code-comment"># Java/Maven</span>
+target/
+*.jar
+*.war
+*.class
+.mvn
+
+<span class="code-comment"># Git</span>
+.git/
+.gitignore
+.gitattributes
+
+<span class="code-comment"># Variables de entorno sensibles</span>
+.env
+.env.local
+.env.production
+.env.*.local
+
+<span class="code-comment"># IDEs</span>
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+<span class="code-comment"># Logs y caché</span>
+*.log
+logs/
+coverage/
+build/
+dist/
+
+<span class="code-comment"># Docker</span>
+docker-compose.yml
+Dockerfile*
+
+<span class="code-comment"># Documentación (opcional)</span>
+README.md
+docs/
+*.md
+</code>
+    </div>
+    
+    <h3>Estructura Típica del Proyecto</h3>
+    
+    <div class="code-block">
+<code>mi-proyecto/
+├── backend/                  <span class="code-comment"># Java Spring Boot</span>
+│   ├── src/
+│   ├── pom.xml
+│   ├── Dockerfile
+│   └── .dockerignore
+│
+├── frontend/                 <span class="code-comment"># React</span>
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   └── .dockerignore
+│
+├── docker-compose.yml        <span class="code-comment"># Orquestación</span>
+├── .env                      <span class="code-comment"># Variables (NO subir a Git)</span>
+├── .env.example             <span class="code-comment"># Plantilla (SÍ subir a Git)</span>
+└── README.md
+</code>
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">💡 Tip Pro</div>
+        Crea un archivo <code>.env.example</code> con las mismas variables que <code>.env</code> pero sin valores reales:
+        <div class="code-block" style="margin-top: 10px;">
+<code><span class="code-comment"># .env.example</span>
+DB_PASSWORD=your_password_here
+API_KEY=your_api_key_here
+</code>
+        </div>
+        Así tus compañeras saben qué variables necesitan configurar.
+    </div>
+</section>
+
+<!-- SECCIÓN 4: ENTORNOS -->
+<section class="section" id="section-4">
+    <h2>4. Entornos: Windows, Mac y Linux 💻</h2>
+
+    <blockquote class="highlight">
+        La magia de Docker es que es (casi) igual en todos lados.
+    </blockquote>
+    
+    <h3>Diferencias por Sistema Operativo</h3>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Característica</th>
+                <th>Windows (WSL2)</th>
+                <th>macOS (Apple Silicon)</th>
+                <th>Linux (Ubuntu)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Instalación</strong></td>
+                <td>Docker Desktop</td>
+                <td>Docker Desktop</td>
+                <td>Docker Engine (terminal)</td>
+            </tr>
+            <tr>
+                <td><strong>Rendimiento</strong></td>
+                <td>Muy bueno gracias a WSL2</td>
+                <td>Bueno, pero emula arquitectura x86 a veces</td>
+                <td>El mejor (Nativo)</td>
+            </tr>
+            <tr>
+                <td><strong>Consumo RAM</strong></td>
+                <td>Docker Desktop puede comerse 4GB solo por arrancar</td>
+                <td>Gestionado por el sistema, pero alto</td>
+                <td>Solo consume lo que consumen los procesos</td>
+            </tr>
+            <tr>
+                <td><strong>Rutas de archivos</strong></td>
+                <td>C:\Users... (Cuidado con permisos)</td>
+                <td>/Users/...</td>
+                <td>/home/...</td>
+            </tr>
+            <tr>
+                <td><strong>Interfaz</strong></td>
+                <td>Visual (Docker Desktop)</td>
+                <td>Visual (Docker Desktop)</td>
+                <td>Principalmente Terminal</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Tips Específicos por Sistema</h3>
+    
+    <div class="info-box info">
+        <div class="info-box-title">🪟 Windows</div>
+        <ul>
+            <li>Es VITAL activar <strong>WSL2</strong> (Windows Subsystem for Linux) para que vuele</li>
+            <li>¡Ojo con los finales de línea (CRLF vs LF)! Si copias scripts de Windows al contenedor Linux, pueden fallar</li>
+            <li>Configura WSL2 como backend predeterminado en Docker Desktop</li>
+        </ul>
+    </div>
+    
+    <div class="info-box info">
+        <div class="info-box-title">🍎 Mac (M1/M2/M3)</div>
+        <ul>
+            <li>Arquitectura ARM vs x86: A veces hay que especificar <code>--platform linux/amd64</code> si vas a desplegar en la nube tradicional</li>
+            <li>Algunas imágenes oficiales aún no tienen versión ARM, Docker las emulará (más lento)</li>
+            <li>Docker Desktop consume bastante batería en Mac</li>
+        </ul>
+    </div>
+    
+    <div class="info-box info">
+        <div class="info-box-title">🐧 Linux</div>
+        <ul>
+            <li>El entorno nativo. Es el más eficiente para servidores de producción</li>
+            <li>Se gestiona más por terminal, pero tienes control total</li>
+            <li>No necesitas Docker Desktop, solo Docker Engine</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SECCIÓN 5: JAVA DOCKERFILE -->
+<section class="section" id="section-5">
+    <h2>5. Hands-on Java: Dockerfile Multietapa 🔨</h2>
+
+    <p>Vamos a crear un Dockerfile profesional para una aplicación Spring Boot. Usaremos una <strong>build multietapa</strong> para optimizar el tamaño de la imagen final.</p>
+
+    <figure class="diagram">
+        <figcaption class="diagram-title">🏗️ Multi-Stage Build: Cómo funciona</figcaption>
+        <div class="flow-container">
+            <div class="flow-item" style="background: #fef3c7;">
+                <div style="font-size: 1.5em;">⚙️</div>
+                <div><strong>Etapa 1: BUILD</strong></div>
+                <div style="font-size: 0.9em; margin-top: 5px;">Maven compila el código</div>
+                <div style="font-size: 0.8em; color: #92400e;">Imagen pesada (~600MB)</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item" style="background: #dcfce7;">
+                <div style="font-size: 1.5em;">📦</div>
+                <div><strong>Genera .jar</strong></div>
+                <div style="font-size: 0.9em; margin-top: 5px;">app-0.0.1.jar</div>
+                <div style="font-size: 0.8em; color: #166534;">Solo el ejecutable</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item" style="background: #dbeafe;">
+                <div style="font-size: 1.5em;">🚀</div>
+                <div><strong>Etapa 2: RUN</strong></div>
+                <div style="font-size: 0.9em; margin-top: 5px;">Solo JRE + .jar</div>
+                <div style="font-size: 0.8em; color: #1e40af;">Imagen ligera (~150MB)</div>
+            </div>
+        </div>
+    </figure>
+    
+    <h3>Dockerfile Completo</h3>
+    
+    <div class="code-block">
+<code><span class="code-comment"># ========================================</span>
+<span class="code-comment"># ETAPA 1: COMPILACIÓN (Build Stage)</span>
+<span class="code-comment"># ========================================</span>
+<span class="code-comment"># Usamos una imagen con Maven y JDK para compilar</span>
+FROM maven:3.8.6-eclipse-temurin-17 AS build
+
+<span class="code-comment"># Establecemos el directorio de trabajo</span>
+WORKDIR /app
+
+<span class="code-comment"># Copiamos los archivos de configuración de Maven primero</span>
+<span class="code-comment"># (Esto optimiza el cache de Docker)</span>
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+<span class="code-comment"># Ahora copiamos el código fuente</span>
+COPY src ./src
+
+<span class="code-comment"># Compilamos la aplicación (genera el .jar)</span>
+RUN mvn clean package -DskipTests
+
+
+<span class="code-comment"># ========================================</span>
+<span class="code-comment"># ETAPA 2: EJECUCIÓN (Runtime Stage)</span>
+<span class="code-comment"># ========================================</span>
+<span class="code-comment"># Usamos una imagen ligera solo con Java Runtime (JRE)</span>
+FROM eclipse-temurin:17-jre-alpine
+
+<span class="code-comment"># Creamos un usuario no-root por seguridad</span>
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+<span class="code-comment"># Copiamos SOLO el .jar de la etapa anterior</span>
+COPY --from=build /app/target/*.jar app.jar
+
+<span class="code-comment"># Exponemos el puerto (informativo, no abre el puerto)</span>
+EXPOSE 8080
+
+<span class="code-comment"># Comando para ejecutar la aplicación</span>
+ENTRYPOINT ["java", "-jar", "/app.jar"]
+</code>
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">💡 ¿Por qué dos etapas?</div>
+        <ul>
+            <li><strong>Etapa 1 (build):</strong> Necesita Maven, JDK completo, dependencias... es pesada (~600MB)</li>
+            <li><strong>Etapa 2 (runtime):</strong> Solo necesita JRE y el .jar final (~150MB)</li>
+            <li><strong>Resultado:</strong> La imagen final NO incluye Maven ni el código fuente, solo lo mínimo para ejecutar</li>
+        </ul>
+    </div>
+    
+    <h3>Optimizaciones Profesionales</h3>
+    
+    <div class="info-box warning">
+        <div class="info-box-title">⚠️ Caché de Dependencias</div>
+        Copiamos <code>pom.xml</code> ANTES que el código fuente. Así, si solo cambias código Java, Docker reutiliza las dependencias ya descargadas. ¡Ahorra mucho tiempo!
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">🔒 Seguridad</div>
+        Nunca ejecutes aplicaciones como <code>root</code>. Creamos un usuario específico <code>spring</code> con permisos limitados.
+    </div>
+    
+    <h3>Construir y Ejecutar</h3>
+
+    <pre class="code-block">
+<code><span class="code-comment"># Construir la imagen</span>
+docker build -t mi-app-java .
+
+<span class="code-comment"># Ejecutar el contenedor</span>
+docker run -p 8080:8080 mi-app-java
+
+<span class="code-comment"># Ver los logs</span>
+docker logs -f &lt;nombre_contenedor&gt;
+</code>
+    </pre>
+</section>
+
+<!-- SECCIÓN 6: REACT DOCKERFILE -->
+<section class="section" id="section-6">
+    <h2>6. Hands-on React: Dockerfile con Nginx ⚛️</h2>
+
+    <p>Para React, también usaremos una build multietapa: compilamos con Node y servimos con Nginx.</p>
+
+    <figure class="diagram">
+        <figcaption class="diagram-title">⚛️ React Build Process</figcaption>
+        <div class="flow-container">
+            <div class="flow-item" style="background: #fef3c7;">
+                <div style="font-size: 1.5em;">📦</div>
+                <div><strong>Etapa 1: BUILD</strong></div>
+                <div style="font-size: 0.9em; margin-top: 5px;">npm install + npm build</div>
+                <div style="font-size: 0.8em; color: #92400e;">Node + dependencias</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item" style="background: #dcfce7;">
+                <div style="font-size: 1.5em;">📁</div>
+                <div><strong>/build</strong></div>
+                <div style="font-size: 0.9em; margin-top: 5px;">HTML + CSS + JS</div>
+                <div style="font-size: 0.8em; color: #166534;">Archivos estáticos</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item" style="background: #dbeafe;">
+                <div style="font-size: 1.5em;">🌐</div>
+                <div><strong>Etapa 2: SERVE</strong></div>
+                <div style="font-size: 0.9em; margin-top: 5px;">Nginx sirve archivos</div>
+                <div style="font-size: 0.8em; color: #1e40af;">Imagen ultra-ligera</div>
+            </div>
+        </div>
+    </figure>
+    
+    <h3>Dockerfile Completo</h3>
+    
+    <div class="code-block">
+<code><span class="code-comment"># ========================================</span>
+<span class="code-comment"># ETAPA 1: COMPILACIÓN</span>
+<span class="code-comment"># ========================================</span>
+FROM node:18-alpine AS build
+
+<span class="code-comment"># Directorio de trabajo</span>
+WORKDIR /app
+
+<span class="code-comment"># Copiamos package.json y package-lock.json</span>
+<span class="code-comment"># (Optimización de caché)</span>
+COPY package*.json ./
+
+<span class="code-comment"># Instalamos dependencias</span>
+RUN npm ci --only=production
+
+<span class="code-comment"># Copiamos el código fuente</span>
+COPY . .
+
+<span class="code-comment"># Variables de entorno para el build</span>
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
+<span class="code-comment"># Compilamos la aplicación (genera /build)</span>
+RUN npm run build
+
+
+<span class="code-comment"># ========================================</span>
+<span class="code-comment"># ETAPA 2: SERVIDOR WEB</span>
+<span class="code-comment"># ========================================</span>
+FROM nginx:alpine
+
+<span class="code-comment"># Copiamos los archivos compilados desde la etapa anterior</span>
+COPY --from=build /app/build /usr/share/nginx/html
+
+<span class="code-comment"># Copiamos configuración personalizada de nginx (opcional)</span>
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+<span class="code-comment"># Exponemos el puerto 80</span>
+EXPOSE 80
+
+<span class="code-comment"># Nginx se inicia automáticamente con esta imagen</span>
+CMD ["nginx", "-g", "daemon off;"]
+</code>
+    </div>
+    
+    <h3>Configuración de Nginx (nginx.conf)</h3>
+    
+    <div class="code-block">
+<code>server {
+    listen 80;
+    
+    location / {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        <span class="code-comment"># Para React Router: redirige todo a index.html</span>
+        try_files $uri $uri/ /index.html;
+    }
+    
+    <span class="code-comment"># Configuración de CORS si es necesario</span>
+    location /api {
+        proxy_pass http://backend:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+</code>
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">💡 ¿Por qué Nginx y no el servidor de desarrollo?</div>
+        <ul>
+            <li>El servidor de desarrollo de React (<code>npm start</code>) NO está optimizado para producción</li>
+            <li>Nginx es mucho más rápido y eficiente sirviendo archivos estáticos</li>
+            <li>Nginx puede actuar como proxy inverso para tu backend</li>
+        </ul>
+    </div>
+    
+    <h3>Variables de Entorno en React</h3>
+    
+    <div class="info-box warning">
+        <div class="info-box-title">⚠️ Importante sobre ENV en React</div>
+        Las variables de entorno en React se "queman" durante el build. NO puedes cambiarlas después sin recompilar.
+    </div>
+    
+    <div class="code-block">
+<code><span class="code-comment"># Archivo .env.development</span>
+REACT_APP_API_URL=http://localhost:8080
+
+<span class="code-comment"># Archivo .env.production</span>
+REACT_APP_API_URL=http://backend:8080
+
+<span class="code-comment"># En el código React</span>
+const API_URL = process.env.REACT_APP_API_URL;
+</code>
+    </div>
+    
+    <h3>Construir con Variables</h3>
+
+    <pre class="code-block">
+<code><span class="code-comment"># Construcción con variable de entorno</span>
+docker build \
+  --build-arg REACT_APP_API_URL=http://backend:8080 \
+  -t mi-app-react .
+</code>
+    </pre>
+</section>
+
+<!-- SECCIÓN 7: DOCKER COMPOSE -->
+<section class="section" id="section-7">
+    <h2>7. Orquestación: Docker Compose 🎼</h2>
+
+    <p>Docker Compose permite definir y ejecutar aplicaciones multi-contenedor. Es el pegamento que une todo.</p>
+
+    <blockquote class="highlight">
+        Con un solo comando (<code>docker-compose up</code>) levantas toda tu arquitectura: base de datos, backend y frontend.
+    </blockquote>
+    
+    <h3>Arquitectura Completa</h3>
+    
+    <div class="network-diagram">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <strong style="font-size: 1.4em; color: var(--primary);">Aplicación Completa con Docker Compose</strong>
+        </div>
+        
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <div class="container-box" style="background: #fef3c7; border-color: #f59e0b;">
+                <div style="font-size: 2em; margin-bottom: 10px;">🗄️</div>
+                <div class="container-name">database</div>
+                <div style="margin: 10px 0; font-size: 0.9em;">PostgreSQL 15</div>
+                <div class="container-port">Puerto: 5432</div>
+                <div style="margin-top: 10px; font-size: 0.85em; color: #92400e;">
+                    Almacena datos<br>
+                    Volumen persistente
+                </div>
+            </div>
+            
+            <div class="container-box" style="background: #dcfce7; border-color: #10b981;">
+                <div style="font-size: 2em; margin-bottom: 10px;">☕</div>
+                <div class="container-name">backend</div>
+                <div style="margin: 10px 0; font-size: 0.9em;">Spring Boot (Java)</div>
+                <div class="container-port">Puerto: 8080</div>
+                <div style="margin-top: 10px; font-size: 0.85em; color: #166534;">
+                    API REST<br>
+                    Conecta con database
+                </div>
+            </div>
+            
+            <div class="container-box" style="background: #dbeafe; border-color: #06b6d4;">
+                <div style="font-size: 2em; margin-bottom: 10px;">⚛️</div>
+                <div class="container-name">frontend</div>
+                <div style="margin: 10px 0; font-size: 0.9em;">React + Nginx</div>
+                <div class="container-port">Puerto: 3000</div>
+                <div style="margin-top: 10px; font-size: 0.85em; color: #1e40af;">
+                    Interfaz de usuario<br>
+                    Llama a backend:8080
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: white; border-radius: 8px;">
+            <strong>Red Interna Docker:</strong> Los contenedores se comunican usando sus nombres como hostnames
+        </div>
+    </div>
+    
+    <h3>docker-compose.yml Completo</h3>
+    
+    <div class="code-block">
+<code>version: '3.8'
+
+services:
+  <span class="code-comment"># ========================================</span>
+  <span class="code-comment"># BASE DE DATOS</span>
+  <span class="code-comment"># ========================================</span>
+  database:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: ${DB_PASSWORD}  <span class="code-comment"># Desde .env</span>
+    ports:
+      - "5432:5432"  <span class="code-comment"># Solo para desarrollo local</span>
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  <span class="code-comment"># ========================================</span>
+  <span class="code-comment"># BACKEND (Java Spring Boot)</span>
+  <span class="code-comment"># ========================================</span>
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: java-backend
+    depends_on:
+      database:
+        condition: service_healthy  <span class="code-comment"># Espera a que DB esté lista</span>
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/myapp
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  <span class="code-comment"># ========================================</span>
+  <span class="code-comment"># FRONTEND (React)</span>
+  <span class="code-comment"># ========================================</span>
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://localhost:8080  <span class="code-comment"># Para desarrollo</span>
+    container_name: react-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"  <span class="code-comment"># Nginx escucha en 80, mapeamos a 3000</span>
+    networks:
+      - app-network
+
+<span class="code-comment"># ========================================</span>
+<span class="code-comment"># REDES Y VOLÚMENES</span>
+<span class="code-comment"># ========================================</span>
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:  <span class="code-comment"># Persistencia de datos</span>
+</code>
+    </div>
+    
+    <h3>Archivo .env (Nunca subir a Git)</h3>
+    
+    <div class="code-block">
+<code><span class="code-comment"># Archivo .env en la raíz del proyecto</span>
+DB_PASSWORD=super_secreto_123
+</code>
+    </div>
+    
+    <div class="info-box danger">
+        <div class="info-box-title">🚨 Seguridad Crítica</div>
+        <ul>
+            <li>NUNCA subas el archivo <code>.env</code> a GitHub</li>
+            <li>Añádelo a <code>.gitignore</code></li>
+            <li>Comparte un archivo <code>.env.example</code> con las variables pero SIN valores reales</li>
+        </ul>
+    </div>
+    
+    <h3>Comandos de Docker Compose</h3>
+    
+    <div class="command-table">
+        <div class="command-row">
+            <div class="command">docker-compose up</div>
+            <div>Levanta todos los servicios en modo attached (ves los logs)</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker-compose up -d</div>
+            <div>Levanta en segundo plano (detached mode)</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker-compose up --build</div>
+            <div>Reconstruye las imágenes antes de levantar</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker-compose down</div>
+            <div>Detiene y elimina contenedores y redes</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker-compose down -v</div>
+            <div>También elimina los volúmenes (⚠️ borras la DB)</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker-compose logs -f &lt;servicio&gt;</div>
+            <div>Ver logs de un servicio específico en tiempo real</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker-compose ps</div>
+            <div>Lista el estado de los servicios</div>
+        </div>
+        
+        <div class="command-row">
+            <div class="command">docker-compose exec &lt;servicio&gt; bash</div>
+            <div>Entrar en un contenedor específico</div>
+        </div>
+    </div>
+</section>
+
+<!-- SECCIÓN 8: NETWORKING Y CORS -->
+<section class="section" id="section-8">
+    <h2>8. Networking y CORS 🌐</h2>
+    
+    <p>Cuando desarrollamos en local sin Docker, todo es <code>localhost</code>. Pero dentro de Docker, cada contenedor es como una casa independiente en una misma calle.</p>
+    
+    <h3>La Red Interna (Docker Network)</h3>
+    
+    <div class="info-box info">
+        <div class="info-box-title">📡 Regla de Oro</div>
+        Los contenedores se hablan usando el <strong>nombre del servicio</strong> definido en <code>docker-compose.yml</code>.
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Desde</th>
+                <th>Hacia</th>
+                <th>URL Correcta</th>
+                <th>URL Incorrecta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Backend</strong></td>
+                <td>Database</td>
+                <td><code>jdbc:postgresql://database:5432/mydb</code></td>
+                <td><code>localhost:5432</code></td>
+            </tr>
+            <tr>
+                <td><strong>Frontend (navegador)</strong></td>
+                <td>Backend</td>
+                <td><code>http://localhost:8080/api</code></td>
+                <td><code>http://backend:8080</code> ❌</td>
+            </tr>
+            <tr>
+                <td><strong>Frontend (dentro del contenedor)</strong></td>
+                <td>Backend</td>
+                <td><code>http://backend:8080/api</code></td>
+                <td><code>localhost:8080</code></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="info-box warning">
+        <div class="info-box-title">⚠️ Atención: Dos contextos diferentes</div>
+        <ul>
+            <li><strong>Código React (JavaScript en el navegador):</strong> Usa <code>localhost</code> porque el navegador está en TU máquina</li>
+            <li><strong>Código del servidor (dentro del contenedor):</strong> Usa nombres de servicio porque está dentro de la red de Docker</li>
+        </ul>
+    </div>
+    
+    <h3>El Fantasma del CORS</h3>
+    
+    <p>CORS (Cross-Origin Resource Sharing) es un mecanismo de seguridad del navegador que impide que tu React (puerto 3000) hable con tu Java (puerto 8080) a menos que Java le dé permiso explícito.</p>
+
+    <figure class="diagram">
+        <figcaption class="diagram-title">🚫 El Problema del CORS</figcaption>
+        <div style="padding: 20px;">
+            <div style="background: #fef2f2; padding: 20px; border-radius: 8px; margin: 10px 0;">
+                <strong style="color: #dc2626;">❌ Sin configuración CORS:</strong>
+                <output style="margin-top: 10px; font-family: monospace; color: #991b1b; display: block;">
+                    Access to fetch at 'http://localhost:8080/api/users' from origin<br>
+                    'http://localhost:3000' has been blocked by CORS policy
+                </output>
+            </div>
+
+            <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; margin: 10px 0;">
+                <strong style="color: #16a34a;">✅ Con configuración CORS:</strong>
+                <output style="margin-top: 10px; font-family: monospace; color: #166534; display: block;">
+                    Response from backend: { "users": [...] }
+                </output>
+            </div>
+        </div>
+    </figure>
+    
+    <h3>Solución CORS en Spring Boot</h3>
+    
+    <div class="code-block">
+<code>package com.example.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")  <span class="code-comment">// Todas las rutas</span>
+                .allowedOrigins(
+                    "http://localhost:3000",  <span class="code-comment">// Desarrollo local</span>
+                    "http://frontend:80"      <span class="code-comment">// Dentro de Docker</span>
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+}
+</code>
+    </div>
+    
+    <div class="info-box warning">
+        <div class="info-box-title">⚠️ Importante sobre CORS</div>
+        <p>Si usas <code>allowCredentials(true)</code>, NO puedes usar <code>allowedOrigins("*")</code>. Debes especificar los orígenes exactos.</p>
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">💡 Alternativa: Proxy Inverso con Nginx</div>
+        Otra solución es configurar Nginx para que sirva tanto el frontend como el backend bajo el mismo dominio, eliminando el problema CORS por completo.
+    </div>
+    
+    <h3>Variables de Entorno: No cambies el código</h3>
+    
+    <div class="code-block">
+<code><span class="code-comment">// En React: src/config.js</span>
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+export const fetchUsers = async () => {
+    const response = await fetch(`${API_URL}/api/users`);
+    return response.json();
+};
+</code>
+    </div>
+    
+    <div class="code-block">
+<code><span class="code-comment"># En desarrollo local (.env.development)</span>
+REACT_APP_API_URL=http://localhost:8080
+
+<span class="code-comment"># En Docker (.env.production o en docker-compose)</span>
+REACT_APP_API_URL=http://backend:8080
+</code>
+    </div>
+</section>
+
+<!-- SECCIÓN 9: ANTIPATRONES -->
+<section class="section" id="section-9">
+    <h2>9. Antipatrones: Errores Comunes 🚫</h2>
+    
+    <p>Lo que "parece que funciona" pero te dará problemas a largo plazo:</p>
+    
+    <div class="antipattern">
+        <div class="antipattern-title">1. 🍔 El Antipatrón "Imagen Obesa"</div>
+        
+        <div class="antipattern-grid">
+            <div class="antipattern-item">
+                <strong>Error:</strong><br>
+                Usar <code>FROM node:latest</code> o <code>FROM openjdk:latest</code>
+            </div>
+            <div class="antipattern-item">
+                <strong>Por qué está mal:</strong><br>
+                Estas imágenes pesan +800MB y tienen herramientas innecesarias
+            </div>
+            <div class="antipattern-item">
+                <strong>Solución:</strong><br>
+                Usa <code>-slim</code> o <code>-alpine</code><br>
+                Ej: <code>node:18-alpine</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="antipattern">
+        <div class="antipattern-title">2. 🔑 El "Hardcoding" de Secretos</div>
+        
+        <div class="antipattern-grid">
+            <div class="antipattern-item">
+                <strong>Error:</strong><br>
+                Escribir contraseñas directamente en <code>Dockerfile</code> o <code>docker-compose.yml</code>
+            </div>
+            <div class="antipattern-item">
+                <strong>Por qué está mal:</strong><br>
+                Si subes ese código a GitHub, cualquiera tendrá tus llaves
+            </div>
+            <div class="antipattern-item">
+                <strong>Solución:</strong><br>
+                Usa archivo <code>.env</code> y NUNCA lo subas a Git
+            </div>
+        </div>
+        
+        <div class="code-block" style="margin-top: 20px;">
+<code><span class="code-comment"># ❌ MAL - Hardcoded</span>
+POSTGRES_PASSWORD: mi_password_super_secreta
+
+<span class="code-comment"># ✅ BIEN - Variable de entorno</span>
+POSTGRES_PASSWORD: ${DB_PASSWORD}
+</code>
+        </div>
+    </div>
+    
+    <div class="antipattern">
+        <div class="antipattern-title">3. 🏗️ El Síndrome de "Todo en Uno"</div>
+        
+        <div class="antipattern-grid">
+            <div class="antipattern-item">
+                <strong>Error:</strong><br>
+                Meter Java, React y PostgreSQL en el MISMO contenedor
+            </div>
+            <div class="antipattern-item">
+                <strong>Por qué está mal:</strong><br>
+                Si actualizas React, tienes que reiniciar también la base de datos
+            </div>
+            <div class="antipattern-item">
+                <strong>Solución:</strong><br>
+                <strong>Un proceso por contenedor</strong> - Docker Compose para orquestar
+            </div>
+        </div>
+    </div>
+    
+    <div class="antipattern">
+        <div class="antipattern-title">4. 📂 Ignorar el .dockerignore</div>
+        
+        <div class="antipattern-grid">
+            <div class="antipattern-item">
+                <strong>Error:</strong><br>
+                No crear un archivo <code>.dockerignore</code>
+            </div>
+            <div class="antipattern-item">
+                <strong>Por qué está mal:</strong><br>
+                Docker copia <code>node_modules</code>, <code>.git</code>, etc. El build tarda siglos
+            </div>
+            <div class="antipattern-item">
+                <strong>Solución:</strong><br>
+                Crear <code>.dockerignore</code> es OBLIGATORIO
+            </div>
+        </div>
+        
+        <div class="code-block" style="margin-top: 20px;">
+<code><span class="code-comment"># Ejemplo de .dockerignore</span>
+node_modules
+target
+.git
+.env
+.vscode
+*.log
+coverage
+build
+dist
+</code>
+        </div>
+    </div>
+    
+    <div class="antipattern">
+        <div class="antipattern-title">5. 🔄 Usar :latest en Producción</div>
+        
+        <div class="antipattern-grid">
+            <div class="antipattern-item">
+                <strong>Error:</strong><br>
+                <code>FROM postgres:latest</code>
+            </div>
+            <div class="antipattern-item">
+                <strong>Por qué está mal:</strong><br>
+                "latest" cambia con el tiempo. Tu app puede romperse sin previo aviso
+            </div>
+            <div class="antipattern-item">
+                <strong>Solución:</strong><br>
+                Usa versiones específicas: <code>postgres:15-alpine</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="antipattern">
+        <div class="antipattern-title">6. 🗑️ No limpiar imágenes antiguas</div>
+        
+        <div class="antipattern-grid">
+            <div class="antipattern-item">
+                <strong>Error:</strong><br>
+                Nunca ejecutar <code>docker system prune</code>
+            </div>
+            <div class="antipattern-item">
+                <strong>Por qué está mal:</strong><br>
+                Docker acumula gigas de imágenes huérfanas
+            </div>
+            <div class="antipattern-item">
+                <strong>Solución:</strong><br>
+                Limpia regularmente con <code>docker system prune -a</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="antipattern">
+        <div class="antipattern-title">5. 🔄 Usar :latest en Producción</div>
+        
+        <div class="antipattern-grid">
+            <div class="antipattern-item">
+                <strong>Error:</strong><br>
+                <code>FROM postgres:latest</code><br>
+                <code>FROM node:latest</code>
+            </div>
+            <div class="antipattern-item">
+                <strong>Por qué está mal:</strong><br>
+                "latest" cambia con el tiempo. Tu app puede romperse sin previo aviso cuando salga una nueva versión
+            </div>
+            <div class="antipattern-item">
+                <strong>Solución:</strong><br>
+                Usa versiones específicas:<br>
+                <code>postgres:15-alpine</code><br>
+                <code>node:18-alpine</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="antipattern">
+        <div class="antipattern-title">6. 🗑️ No limpiar imágenes antiguas</div>
+        
+        <div class="antipattern-grid">
+            <div class="antipattern-item">
+                <strong>Error:</strong><br>
+                Nunca ejecutar <code>docker system prune</code>
+            </div>
+            <div class="antipattern-item">
+                <strong>Por qué está mal:</strong><br>
+                Docker acumula gigas de imágenes huérfanas, contenedores detenidos y volúmenes no usados. Tu disco se llena
+            </div>
+            <div class="antipattern-item">
+                <strong>Solución:</strong><br>
+                Limpia regularmente con:<br>
+                <code>docker system prune -a</code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECCIÓN 10: IA COPILOT -->
+<section class="section" id="section-10">
+    <h2>10. IA como Copilot 🤖</h2>
+    
+    <p>La IA no solo sirve para escribir código, también puede ayudarte a optimizar, debuggear y aprender Docker más rápido.</p>
+    
+    <h3>Prompts Útiles para Docker</h3>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">💡 Generación de Dockerfiles</div>
+        <div class="code-block" style="background: white; color: #1e293b; border: 2px solid var(--accent);">
+<code>"Soy desarrolladora Junior, tengo un microservicio en Spring Boot 3 con Java 17. 
+Necesito un Dockerfile multietapa que use Maven para compilar y una imagen ligera 
+para correr. Además, necesito un docker-compose que incluya una base de datos PostgreSQL."</code>
+        </div>
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">🔍 Optimización de Imágenes</div>
+        <div class="code-block" style="background: white; color: #1e293b; border: 2px solid var(--accent);">
+<code>"Actúa como una experta en DevOps. Revisa este Dockerfile para una aplicación 
+de Java y React. Busca antipatrones, problemas de seguridad y dime cómo puedo 
+reducir el tamaño de la imagen final.
+
+[Pega aquí tu Dockerfile]"</code>
+        </div>
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">🐛 Debugging de Errores</div>
+        <div class="code-block" style="background: white; color: #1e293b; border: 2px solid var(--accent);">
+<code>"Mi contenedor de React da error 'ECONNREFUSED' al intentar conectar con el 
+contenedor de Java en Docker Compose. Aquí tienes mi archivo docker-compose.yml, 
+¿qué estoy configurando mal?
+
+[Pega tu docker-compose.yml]"</code>
+        </div>
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">🌐 Configuración de Networking</div>
+        <div class="code-block" style="background: white; color: #1e293b; border: 2px solid var(--accent);">
+<code>"Soy mentora y quiero explicar cómo configurar un Proxy Inverso con Nginx en 
+Docker para que Java y React parezcan estar en el mismo dominio y evitar problemas 
+de CORS. Dame el archivo nginx.conf con comentarios explicativos."</code>
+        </div>
+    </div>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">📚 Explicaciones Didácticas</div>
+        <div class="code-block" style="background: white; color: #1e293b; border: 2px solid var(--accent);">
+<code>"Explica qué hace cada línea de este Dockerfile como si estuvieras enseñando a 
+desarrolladoras que nunca han usado Docker:
+
+[Pega tu Dockerfile]"</code>
+        </div>
+    </div>
+    
+    <h3>Docker en Proyectos de IA</h3>
+
+    <blockquote class="highlight">
+        Docker no solo sirve para Java/React, sirve para "empaquetar inteligencia"
+    </blockquote>
+    
+    <div class="info-box info">
+        <div class="info-box-title">🤖 Modelos como Servicios</div>
+        <p>En el futuro podrás meter un modelo de Python (como una API de inferencia de FastAPI) en un contenedor y tu backend de Java lo llamará exactamente igual que llama a la base de datos hoy.</p>
+    </div>
+    
+    <div class="info-box info">
+        <div class="info-box-title">🔄 Portabilidad de la IA</div>
+        <p>"Hoy despliegas Java, mañana un modelo de reconocimiento de imágenes. El comando <code>docker build</code> es el mismo".</p>
+    </div>
+    
+    <h3>Prompt para Integración IA + Docker</h3>
+    
+    <div class="code-block">
+<code><span class="code-comment"># Prompt de ejemplo</span>
+"Dame un Dockerfile optimizado para una aplicación FastAPI que usa:
+- Python 3.11
+- TensorFlow para inferencia
+- Acceso a GPU con CUDA
+- Variables de entorno para la API key de OpenAI
+
+Incluye también un docker-compose que conecte esta API con un backend 
+de Spring Boot que la consume."
+</code>
+    </div>
+</section>
+
+<!-- SECCIÓN 11: CHECKLIST -->
+<section class="section" id="section-11">
+    <h2>11. Checklist de Producción ✅</h2>
+    
+    <p>Lista de verificación mental antes de desplegar. Esto reduce la ansiedad de "no sé si me falta algo".</p>
+    
+    <div class="checklist">
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿He limpiado el código?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">No hay console.log ni System.out.println innecesarios</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿Existe un .dockerignore?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">Compruebo que no subo node_modules ni target</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿Variables de entorno configuradas?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">Nada de contraseñas en el código. Uso .env</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿Imágenes con versiones específicas?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">No uso :latest en producción</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿Healthcheck configurado?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">Docker espera a que la DB esté lista antes de lanzar Java</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿Volúmenes para persistencia?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">He definido volúmenes para que la base de datos no se borre</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿CORS configurado?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">El frontend puede comunicarse con el backend</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿Logs accesibles?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">Sé cómo ver logs de cada servicio con docker logs</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿Usuario no-root?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">Por seguridad, los contenedores no corren como root</span>
+            </div>
+        </div>
+        
+        <div class="checklist-item">
+            <div class="checkbox"></div>
+            <div>
+                <strong>¿Documentación mínima?</strong><br>
+                <span style="font-size: 0.9em; color: #64748b;">README.md con instrucciones de docker-compose up</span>
+            </div>
+        </div>
+    </div>
+    
+    <h3>Herramientas Recomendadas</h3>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Herramienta</th>
+                <th>Para qué sirve</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Docker Desktop</strong></td>
+                <td>Interfaz visual para gestionar contenedores (Windows/Mac)</td>
+                <td>docker.com</td>
+            </tr>
+            <tr>
+                <td><strong>LazyDocker</strong></td>
+                <td>TUI (Terminal UI) para gestionar Docker desde terminal</td>
+                <td>github.com/jesseduffield/lazydocker</td>
+            </tr>
+            <tr>
+                <td><strong>Docker Extension (VS Code)</strong></td>
+                <td>Gestionar contenedores directamente desde VS Code</td>
+                <td>Buscar "Docker" en extensiones</td>
+            </tr>
+            <tr>
+                <td><strong>dive</strong></td>
+                <td>Analizar imágenes capa por capa para optimizar tamaño</td>
+                <td>github.com/wagoodman/dive</td>
+            </tr>
+            <tr>
+                <td><strong>hadolint</strong></td>
+                <td>Linter para Dockerfiles (encuentra errores comunes)</td>
+                <td>github.com/hadolint/hadolint</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Gestión de Logs y Debugging Real</h3>
+    
+    <div class="info-box tip">
+        <div class="info-box-title">🕵️‍♀️ Tip de Debugging</div>
+        <p>Si el backend no conecta, haz un:</p>
+        <div class="code-block">
+<code>docker exec -it backend-java ping database</code>
+        </div>
+        <ul>
+            <li>Si el <strong>ping falla</strong> → Es problema de red (revisa docker-compose.yml)</li>
+            <li>Si el <strong>ping funciona</strong> → Es tu application.properties (URL, usuario, password)</li>
+        </ul>
+    </div>
+</section>
+
+<!-- PÁGINA FINAL -->
+<section class="section" style="text-align: center; page-break-before: always;">
+    <article style="height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div style="font-size: 5em; margin-bottom: 30px;">🐳</div>
+        <h2 style="color: var(--primary); font-size: 3em; margin-bottom: 20px;">¡Ya eres una Docker Hero!</h2>
+        <p style="font-size: 1.5em; color: var(--dark); margin-bottom: 40px;">
+            Ahora tienes las herramientas para empaquetar, desplegar<br>
+            y escalar aplicaciones profesionales
+        </p>
+
+        <aside style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 30px; border-radius: 12px; max-width: 600px; margin-top: 40px;">
+            <p style="font-size: 1.2em; line-height: 1.8;">
+                <strong>Recuerda:</strong><br>
+                Docker no es solo una herramienta de infraestructura,<br>
+                es tu superpoder como desarrolladora.<br><br>
+                Si sabes Docker, sabes entregar software que funciona.
+            </p>
+        </aside>
+
+        <address style="margin-top: 60px; color: var(--primary);">
+            <p style="font-size: 1.3em; font-weight: bold;">Irina Ichim</p>
+            <p style="color: #64748b;">Full-Stack Developer & Tech Lead | <time datetime="2026-01">Enero 2026</time></p>
+        </address>
+    </article>
+</section>
+
+<footer class="footer">
+    <p><strong>Irina Ichim</strong> - Full-Stack Developer & Tech Lead</p>
+    <p>Guía creada para desarrolladoras que quieren dominar Docker</p>
+    <address style="margin-top: 10px; font-size: 0.85em;">
+        📧 Contacto: www.irina-ichim.com<br>
+        Versión 1.0 - <time datetime="2026-01">Enero 2026</time>
+    </address>
+</footer>
+
+</body>
+</html>
