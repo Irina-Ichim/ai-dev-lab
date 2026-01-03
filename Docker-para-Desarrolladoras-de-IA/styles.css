@@ -458,13 +458,44 @@
             color: var(--secondary);
             font-family: monospace;
         }
-        
+
+        /* PDF Download Button */
+        .pdf-button {
+            background: white;
+            color: var(--primary);
+            border: 3px solid white;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .pdf-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .pdf-button:active {
+            transform: translateY(-1px);
+        }
+
         @media print {
             .section {
                 page-break-inside: avoid;
             }
-            
+
             .info-box, .diagram, .code-block {
                 page-break-inside: avoid;
+            }
+
+            .pdf-button {
+                display: none;
             }
         }
