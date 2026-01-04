@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Actions + CI/CD + Docker - Cheat Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Asap+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 GitHub Actions + CI/CD + Docker</h1>
+        <div class="subtitle">Cheat Sheet para Desarrolladoras</div>
+    </div>
+
+    <div class="toc">
+        <h2>📋 Índice Rápido</h2>
+        <ul>
+            <li><a href="#conceptos-fundamentales">Conceptos Fundamentales</a></li>
+            <li><a href="#sintaxis-yaml">Sintaxis YAML Esencial</a></li>
+            <li><a href="#comandos-docker">Comandos Docker</a></li>
+            <li><a href="#workflows-comunes">Workflows Comunes</a></li>
+            <li><a href="#secretos-variables">Secretos y Variables</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#recursos-documentacion">Recursos y Documentación</a></li>
+        </ul>
+    </div>
+
+    <div class="section" id="conceptos-fundamentales">
+        <h2 class="section-title">🎯 Conceptos Fundamentales</h2>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">CI/CD</h3>
+            <dl>
+                <dt>CI (Continuous Integration)</dt>
+                <dd>Validación automática del código (tests, linting)</dd>
+                
+                <dt>CD (Continuous Deployment)</dt>
+                <dd>Despliegue automático a producción</dd>
+                
+                <dt>Pipeline</dt>
+                <dd>Secuencia automatizada de pasos (build → test → deploy)</dd>
+            </dl>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Docker</h3>
+            <dl>
+                <dt>Imagen</dt>
+                <dd>Plantilla inmutable con tu aplicación empaquetada</dd>
+                
+                <dt>Contenedor</dt>
+                <dd>Instancia ejecutable de una imagen</dd>
+                
+                <dt>Registry</dt>
+                <dd>Almacén de imágenes (Docker Hub, GHCR)</dd>
+                
+                <dt>Multi-stage Build</dt>
+                <dd>Optimización para imágenes más pequeñas</dd>
+            </dl>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">GitHub Actions</h3>
+            <dl>
+                <dt>Workflow</dt>
+                <dd>Proceso automatizado definido en YAML</dd>
+                
+                <dt>Job</dt>
+                <dd>Conjunto de steps que se ejecutan en un runner</dd>
+                
+                <dt>Step</dt>
+                <dd>Tarea individual dentro de un job</dd>
+                
+                <dt>Runner</dt>
+                <dd>Máquina virtual que ejecuta los jobs</dd>
+                
+                <dt>Artifact</dt>
+                <dd>Archivo generado durante el workflow (logs, reportes)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="sintaxis-yaml">
+        <h2 class="section-title">📝 Sintaxis YAML Esencial</h2>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Estructura Básica de un Workflow</h3>
+            <pre>name: CI/CD Pipeline
+
+# ¿Cuándo se ejecuta?
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+# ¿Qué hace?
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Paso 1: Obtener el código
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Paso 2: Configurar Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      # Paso 3: Instalar dependencias
+      - name: Install dependencies
+        run: npm ci
+      
+      # Paso 4: Ejecutar tests
+      - name: Run tests
+        run: npm test</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Triggers Comunes</h3>
+            <pre># Al hacer push
+on: push
+
+# Solo en ciertas ramas
+on:
+  push:
+    branches: [ main, develop ]
+
+# En pull requests
+on:
+  pull_request:
+    branches: [ main ]
+
+# Manual (desde la UI de GitHub)
+on: workflow_dispatch
+
+# Programado (cron)
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Cada día a medianoche</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Jobs Secuenciales vs Paralelos</h3>
+            <pre>jobs:
+  # Job 1: Se ejecuta primero
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm test
+  
+  # Job 2: Se ejecuta después de 'test'
+  build:
+    needs: test  # ← Espera a que 'test' termine
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run build
+  
+  # Job 3: Se ejecuta en paralelo con 'test'
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run lint</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Matrix Strategy (Paralelización)</h3>
+            <pre>jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm test</pre>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="comandos-docker">
+        <h2 class="section-title">🐳 Comandos Docker</h2>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Comandos Básicos</h3>
+            <div class="card">
+                <div class="command"># Ver imágenes locales<br>docker images</div>
+                <div class="command"># Ver contenedores corriendo<br>docker ps</div>
+                <div class="command"># Ver TODOS los contenedores (incluso detenidos)<br>docker ps -a</div>
+                <div class="command"># Construir imagen<br>docker build -t nombre-imagen:tag .</div>
+                <div class="command"># Ejecutar contenedor<br>docker run -p 8080:80 nombre-imagen:tag</div>
+                <div class="command"># Detener contenedor<br>docker stop &lt;container-id&gt;</div>
+                <div class="command"># Eliminar contenedor<br>docker rm &lt;container-id&gt;</div>
+                <div class="command"># Eliminar imagen<br>docker rmi &lt;image-id&gt;</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Docker Compose</h3>
+            <div class="card">
+                <div class="command"># Levantar todos los servicios<br>docker-compose up</div>
+                <div class="command"># Levantar en segundo plano (detached)<br>docker-compose up -d</div>
+                <div class="command"># Reconstruir y levantar<br>docker-compose up --build</div>
+                <div class="command"># Detener servicios<br>docker-compose down</div>
+                <div class="command"># Detener Y eliminar volúmenes (¡CUIDADO! Borra BD)<br>docker-compose down -v</div>
+                <div class="command"># Ver logs en tiempo real<br>docker-compose logs -f</div>
+                <div class="command"># Ver logs de un servicio específico<br>docker-compose logs -f backend</div>
+                <div class="command"># Ver estado de servicios<br>docker-compose ps</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Limpieza de Docker</h3>
+            <div class="card">
+                <div class="command"># Limpiar imágenes dangling (&lt;none&gt;)<br>docker image prune -f</div>
+                <div class="command"># Limpiar contenedores detenidos<br>docker container prune -f</div>
+                <div class="command"># Limpiar TODO (imágenes, contenedores, redes, volúmenes)<br>docker system prune -a --volumes  # ¡CUIDADO!</div>
+                <div class="command"># Ver espacio usado por Docker<br>docker system df</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Dockerfile Multi-Stage (Ejemplo Frontend)</h3>
+            <pre># ===== STAGE 1: BUILD =====
+FROM node:20-alpine AS build
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Copiar código y compilar
+COPY . .
+RUN npm run build
+
+# ===== STAGE 2: PRODUCTION =====
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</pre>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="workflows-comunes">
+        <h2 class="section-title">🔄 Workflows Comunes</h2>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Workflow 1: CI Básico (Test + Lint)</h3>
+            <pre>name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'  # ← Cache de node_modules
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run linter
+        run: npm run lint
+      
+      - name: Run tests
+        run: npm test</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Workflow 2: Build y Push de Docker</h3>
+            <pre>name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      # Login en GitHub Container Registry
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Build y Push
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Workflow 3: Deploy a Render (Webhook)</h3>
+            <pre>name: Deploy to Render
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger Render Deploy
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Workflow 4: CI/CD Completo</h3>
+            <pre>name: Complete CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # Job 1: Test
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+  
+  # Job 2: Build (solo si test pasa)
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+  
+  # Job 3: Deploy (solo si build pasa)
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Render
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}</pre>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="secretos-variables">
+        <h2 class="section-title">🔐 Secretos y Variables</h2>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Cómo Añadir Secretos en GitHub</h3>
+            <ol>
+                <li>Ve a tu repositorio en GitHub</li>
+                <li>Settings → Secrets and variables → Actions</li>
+                <li>Click en <strong>New repository secret</strong></li>
+                <li>Nombre: <code>OPENAI_API_KEY</code></li>
+                <li>Valor: <code>sk-proj-tu-api-key-aqui</code></li>
+                <li>Add secret</li>
+            </ol>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Usar Secretos en Workflows</h3>
+            <pre>jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use secret
+        env:
+          API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          echo "API Key configured"
+          # El secreto NO se imprime en logs</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Variables de Entorno en Docker</h3>
+            <pre>jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build with secrets
+        run: |
+          docker build \
+            --build-arg API_KEY=${{ secrets.OPENAI_API_KEY }} \
+            -t myapp:latest .</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Archivo .env Local vs GitHub Secrets</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Archivo</th>
+                        <th>Uso</th>
+                        <th>Se sube a Git?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.env</code></td>
+                        <td>Desarrollo local</td>
+                        <td><span class="badge badge-danger">❌ NO</span> (en .gitignore)</td>
+                    </tr>
+                    <tr>
+                        <td><code>.env.example</code></td>
+                        <td>Plantilla para equipo</td>
+                        <td><span class="badge badge-success">✅ SÍ</span> (sin valores reales)</td>
+                    </tr>
+                    <tr>
+                        <td>GitHub Secrets</td>
+                        <td>CI/CD y Producción</td>
+                        <td><span class="badge badge-success">✅ Cifrados</span> en GitHub</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="troubleshooting">
+        <h2 class="section-title">🚨 Troubleshooting</h2>
+        
+        <div class="card">
+            <div class="card-header">Error: "Workflow does not have permission to access secrets"</div>
+            <p><strong>Solución:</strong></p>
+            <pre>jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write  # ← Añade permisos</pre>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error: "Docker build failed"</div>
+            <p><strong>Pasos de debug:</strong></p>
+            <pre># 1. Construir localmente primero
+docker build -t test .
+
+# 2. Ver logs detallados
+docker build --progress=plain -t test .
+
+# 3. Verificar .dockerignore
+cat .dockerignore</pre>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error: "npm ERR! code ELIFECYCLE"</div>
+            <p><strong>Causa común:</strong> Tests fallando</p>
+            <p><strong>Solución:</strong></p>
+            <pre># Ejecutar tests localmente
+npm test
+
+# Ver qué test falla específicamente
+npm test -- --verbose</pre>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error: "Cannot find module"</div>
+            <p><strong>Causa común:</strong> Cache corrupto</p>
+            <p><strong>Solución en workflow:</strong></p>
+            <pre>- name: Clear cache and install
+  run: |
+    npm ci --cache .npm --prefer-offline</pre>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Workflow se queda "pending" indefinidamente</div>
+            <p><strong>Causa común:</strong> Runner sin disponibilidad</p>
+            <p><strong>Solución:</strong></p>
+            <ul>
+                <li>Verifica límite de minutos mensuales (Settings → Billing)</li>
+                <li>Usa <code>runs-on: ubuntu-latest</code> (más rápido que versiones específicas)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Check Verde no Aparece</div>
+            <p><strong>Causa:</strong> Branch protection no configurada</p>
+            <p><strong>Solución:</strong></p>
+            <ul>
+                <li>Settings → Branches</li>
+                <li>Add rule para main</li>
+                <li>✅ Require status checks to pass before merging</li>
+                <li>Selecciona tu workflow</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="recursos-documentacion">
+        <h2 class="section-title">📚 Recursos y Documentación</h2>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Documentación Oficial</h3>
+            <ul>
+                <li><strong>GitHub Actions:</strong> https://docs.github.com/en/actions</li>
+                <li><strong>Docker:</strong> https://docs.docker.com/</li>
+                <li><strong>Docker Compose:</strong> https://docs.docker.com/compose/</li>
+                <li><strong>Render:</strong> https://render.com/docs</li>
+            </ul>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Aprende Más</h3>
+            <ul>
+                <li><strong>GitHub Actions Marketplace:</strong> https://github.com/marketplace?type=actions</li>
+                <li><strong>Awesome GitHub Actions:</strong> https://github.com/sdras/awesome-actions</li>
+                <li><strong>Docker Labs:</strong> https://labs.play-with-docker.com/</li>
+            </ul>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Ejemplos de Workflows</h3>
+            <ul>
+                <li><strong>Node.js + Docker:</strong> https://github.com/actions/starter-workflows/blob/main/ci/docker-publish.yml</li>
+                <li><strong>React + Vite:</strong> https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml</li>
+            </ul>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Comunidad y Ayuda</h3>
+            <ul>
+                <li><strong>GitHub Community:</strong> https://github.community/</li>
+                <li><strong>Stack Overflow:</strong> Tag github-actions</li>
+                <li><strong>Docker Community:</strong> https://forums.docker.com/</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">🎯 Comandos Para el Día a Día</h2>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Setup Inicial de Proyecto con Docker</h3>
+            <pre># 1. Clonar proyecto
+git clone https://github.com/tu-usuario/tu-proyecto
+cd tu-proyecto
+
+# 2. Copiar variables de entorno
+cp .env.example .env
+nano .env  # Editar con tus valores
+
+# 3. Levantar con Docker
+docker-compose up --build
+
+# 4. En otra terminal, verificar
+docker-compose ps</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Workflow de Desarrollo</h3>
+            <pre># Morning routine
+git pull origin main
+docker-compose up -d
+
+# Hacer cambios en código...
+
+# Verificar que funciona localmente
+docker-compose logs -f
+
+# Commit y push
+git add .
+git commit -m "feat: add new feature"
+git push origin feature-branch
+
+# GitHub Actions se ejecuta automáticamente
+# Ver en: https://github.com/tu-repo/actions</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Antes de Hacer Merge</h3>
+            <pre># Verificar que tests pasan localmente
+npm test
+
+# Verificar que Docker builda correctamente
+docker-compose build
+
+# Verificar que no hay secretos expuestos
+git diff
+
+# Hacer merge solo si check verde ✅</pre>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section">
+        <h2 class="section-title">💡 Tips Pro</h2>
+        
+        <div class="card">
+            <div class="card-header">1. Cache de npm para Builds Rápidos</div>
+            <pre>- name: Setup Node.js
+  uses: actions/setup-node@v3
+  with:
+    node-version: '20'
+    cache: 'npm'  # ← Ahorra 2-3 minutos por build</pre>
+        </div>
+
+        <div class="card">
+            <div class="card-header">2. Fail Fast en Tests</div>
+            <pre>jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run lint      # Si falla aquí...
+      - run: npm test          # ...esto no se ejecuta
+      - run: docker build .    # ...ni esto</pre>
+        </div>
+
+        <div class="card">
+            <div class="card-header">3. Branch Protection Rules</div>
+            <p>Settings → Branches → Branch protection rules</p>
+            <ul>
+                <li>✅ Require status checks to pass before merging</li>
+                <li>✅ Require branches to be up to date before merging</li>
+                <li>✅ Include administrators (¡nadie se salta las reglas!)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">4. Optimización de Dockerfile</div>
+            <pre># ❌ MAL: Todo en una capa
+FROM node:20
+COPY . .
+RUN npm install && npm run build
+
+# ✅ BIEN: Capas separadas (mejor cache)
+FROM node:20
+COPY package*.json ./
+RUN npm ci  # ← Se cachea si package.json no cambia
+COPY . .
+RUN npm run build</pre>
+        </div>
+
+        <div class="card">
+            <div class="card-header">5. Variables de Entorno Organizadas</div>
+            <pre># En .env
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=secure_password_123
+POSTGRES_DB=techpath_dev
+
+# En docker-compose.yml
+environment:
+  - POSTGRES_USER=${POSTGRES_USER}
+  - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  - POSTGRES_DB=${POSTGRES_DB}</pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">🎓 Glosario Rápido</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Término</th>
+                    <th>Significado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Runner</strong></td>
+                    <td>Servidor que ejecuta tus workflows</td>
+                </tr>
+                <tr>
+                    <td><strong>Job</strong></td>
+                    <td>Conjunto de pasos que se ejecutan juntos</td>
+                </tr>
+                <tr>
+                    <td><strong>Step</strong></td>
+                    <td>Comando individual dentro de un job</td>
+                </tr>
+                <tr>
+                    <td><strong>Action</strong></td>
+                    <td>Bloque reutilizable de código (de Marketplace)</td>
+                </tr>
+                <tr>
+                    <td><strong>Artifact</strong></td>
+                    <td>Archivo generado durante el workflow</td>
+                </tr>
+                <tr>
+                    <td><strong>Matrix</strong></td>
+                    <td>Ejecutar job en múltiples configuraciones</td>
+                </tr>
+                <tr>
+                    <td><strong>Cache</strong></td>
+                    <td>Guardar dependencias entre builds</td>
+                </tr>
+                <tr>
+                    <td><strong>Secret</strong></td>
+                    <td>Variable cifrada (API keys, contraseñas)</td>
+                </tr>
+                <tr>
+                    <td><strong>Trigger</strong></td>
+                    <td>Evento que inicia un workflow</td>
+                </tr>
+                <tr>
+                    <td><strong>YAML</strong></td>
+                    <td>Lenguaje de configuración de workflows</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">📞 ¿Necesitas Ayuda?</h2>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Errores Comunes y Soluciones Rápidas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Error</th>
+                        <th>Solución Rápida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tests fallan en Actions pero no local</td>
+                        <td>Verifica variables de entorno</td>
+                    </tr>
+                    <tr>
+                        <td>Docker build falla</td>
+                        <td>Revisa .dockerignore</td>
+                    </tr>
+                    <tr>
+                        <td>Workflow no se ejecuta</td>
+                        <td>Verifica sintaxis YAML</td>
+                    </tr>
+                    <tr>
+                        <td>Secretos no funcionan</td>
+                        <td>Verifica permisos del workflow</td>
+                    </tr>
+                    <tr>
+                        <td>Check verde no aparece</td>
+                        <td>Configura Branch Protection</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Recursos de Emergencia</h3>
+            <ul>
+                <li><strong>Logs de GitHub Actions:</strong> Actions tab → Click en el workflow fallido</li>
+                <li><strong>Logs de Docker local:</strong> <code>docker-compose logs -f</code></li>
+                <li><strong>Validar YAML:</strong> https://www.yamllint.com/</li>
+                <li><strong>Buscar en Stack Overflow:</strong> [github-actions] tu error</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="alert alert-success">
+        <h3>✨ Mensaje Final</h3>
+        <p><strong>Recordad:</strong></p>
+        <p><em>"El check verde ✅ es vuestra reputación profesional. Si GitHub Actions lo aprueba, vuestro código es sólido."</em></p>
+        <p><strong>No memoricéis comandos, entended los conceptos:</strong></p>
+        <ul>
+            <li>CI/CD es automatización con propósito</li>
+            <li>Docker garantiza consistencia</li>
+            <li>GitHub Actions orquesta todo el proceso</li>
+            <li>Los secretos NUNCA van en el código</li>
+        </ul>
+        <p class="text-center mt-2"><strong>Vosotras sois arquitectas, no solo programadoras. 🚀</strong></p>
+    </div>
+
+    <div class="footer">
+        <p>Creado con 💙 por <strong>Irina Ichim</strong></p>
+        <p>🎓 Factoría F5 - Curso de IA y DevOps | Enero 2025</p>
+        <p class="mt-1">📌 <strong>Repositorio de Ejemplo:</strong></p>
+        <p><a href="https://github.com/Irina-Ichim/TechPath">TechPath: https://github.com/Irina-Ichim/TechPath</a></p>
+        <p>✨ Explora el código real con Docker + GitHub Actions implementado.</p>
+    </div>
+
+    <!-- Botón de volver arriba -->
+    <a href="#" class="scroll-to-top" id="scrollToTop" title="Volver arriba">
+        ↑
+    </a>
+
+    <script src="main.js"></script>
+</body>
+</html>

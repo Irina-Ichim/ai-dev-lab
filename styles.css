@@ -1,0 +1,360 @@
+@page {
+    size: A4;
+    margin: 15mm;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    background: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Asap Condensed', 'Arial Narrow', sans-serif;
+}
+
+/* Irina Ichim Brand Colors */
+:root {
+    /* Colores principales */
+    --primary: #ea4f33;
+    --secondary: #4737bb;
+    --accent: #6c63ff;
+    --dark: #2a2170;
+    --light: #fdfdfd;
+    --warning: #f59e0b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --info: #06b6d4;
+    
+    /* Sombras */
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --shadow-medium: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    /* Border radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.8rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Transiciones */
+    --transition-fast: 0.3s ease;
+    --transition-smooth: 0.6s cubic-bezier(0.33, 0.0, 0.22, 1);
+}
+
+/* Cover Page */
+.cover {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+}
+
+.cover h1 {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.cover .subtitle {
+    font-size: 1.8em;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    max-width: 800px;
+}
+
+.cover .logo {
+    font-size: 5em;
+    margin-bottom: 30px;
+}
+
+.cover .author {
+    margin-top: 60px;
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* Content Sections */
+.section {
+    padding: 60px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section h2 {
+    color: var(--primary);
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--secondary);
+    padding-bottom: 10px;
+}
+
+.section h3 {
+    color: var(--dark);
+    font-size: 1.6em;
+    margin: 30px 0 15px 0;
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.project-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-card);
+    border: 2px solid #e0e7ff;
+    transition: all var(--transition-fast);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--accent);
+}
+
+.project-icon {
+    font-size: 5em;
+    line-height: 1;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.project-title {
+    color: var(--primary);
+    font-size: 1.8em;
+    margin: 0;
+    font-weight: 700;
+}
+
+.project-description {
+    color: #64748b;
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+
+.project-features {
+    list-style: none;
+    margin: 15px 0;
+}
+
+.project-features li {
+    padding: 8px 0;
+    color: #475569;
+    font-size: 0.95em;
+}
+
+.project-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, var(--primary), #f97316);
+    color: white;
+}
+
+.badge-success {
+    background: linear-gradient(135deg, var(--success), #34d399);
+    color: white;
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, var(--warning), #fbbf24);
+    color: white;
+}
+
+.badge-info {
+    background: linear-gradient(135deg, var(--info), #22d3ee);
+    color: white;
+}
+
+/* Info Boxes */
+.info-box {
+    padding: 25px;
+    margin: 25px 0;
+    border-radius: var(--radius-md);
+    border-left: 5px solid;
+}
+
+.info-box.tip {
+    background: #f0fdf4;
+    border-color: var(--success);
+}
+
+.info-box.warning {
+    background: #fffbeb;
+    border-color: var(--warning);
+}
+
+.info-box.danger {
+    background: #fef2f2;
+    border-color: var(--danger);
+}
+
+.info-box.info {
+    background: #eff6ff;
+    border-color: var(--accent);
+}
+
+.info-box-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-box ul {
+    margin-left: 20px;
+}
+
+.info-box li {
+    margin: 10px 0;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+    color: white;
+    margin-top: 60px;
+}
+
+.footer a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Botón Volver Arriba */
+.back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+.back-to-top:active {
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cover h1 {
+        font-size: 2.5em;
+    }
+    
+    .cover .subtitle {
+        font-size: 1.3em;
+    }
+    
+    .section {
+        padding: 40px 20px;
+    }
+    
+    .project-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 30px;
+    }
+    
+    .project-icon {
+        font-size: 4em;
+    }
+    
+    .project-meta {
+        justify-content: center;
+    }
+}
+
+@media print {
+    .section {
+        page-break-inside: avoid;
+    }
+
+    .info-box, .project-card {
+        page-break-inside: avoid;
+    }
+
+    .back-to-top {
+        display: none;
+    }
+}
