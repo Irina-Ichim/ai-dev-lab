@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UML: De Papel a IA - Cheat Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Asap+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>📐 UML: De Papel a IA</h1>
+        <div class="subtitle">Cheat Sheet para Arquitectas de Software</div>
+    </div>
+
+    <div class="toc">
+        <h2>📋 Índice Rápido</h2>
+        <ul>
+            <li><a href="#que-es-uml">¿Qué es UML?</a></li>
+            <li><a href="#por-que-uml">¿Por qué necesitas UML?</a></li>
+            <li><a href="#diagramas-esenciales">Los 3 Diagramas Esenciales</a></li>
+            <li><a href="#metodo-tradicional">Método Tradicional vs Moderno</a></li>
+            <li><a href="#ecosistema-mermaid">Ecosistema: Mermaid y Alternativas</a></li>
+            <li><a href="#ia-uml">Cómo la IA cambió UML</a></li>
+            <li><a href="#workflow-ia">Workflow Recomendado con IA</a></li>
+            <li><a href="#recursos">Recursos y Práctica</a></li>
+        </ul>
+    </div>
+
+    <div class="section" id="que-es-uml">
+        <h2 class="section-title">🎯 ¿Qué es UML?</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Definición</h3>
+            <div class="card">
+                <p><strong>Unified Modeling Language</strong> = El lenguaje universal para diseñar software <strong>ANTES</strong> de programarlo.</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Analogía Simple</h3>
+            <dl>
+                <dt>🏗️ Arquitecto de edificios</dt>
+                <dd>Hace planos antes de construir</dd>
+
+                <dt>👩‍💻 Arquitecta de software</dt>
+                <dd>Hace diagramas UML antes de codificar</dd>
+            </dl>
+            <div class="alert alert-info">
+                <strong>Importante:</strong> UML NO es código. Es el mapa que te dice QUÉ vas a construir y CÓMO se relaciona.
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Regla de Oro</h3>
+            <div class="alert alert-success">
+                <strong>15 minutos de UML te ahorran 3 horas de refactoring.</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="por-que-uml">
+        <h2 class="section-title">🤔 ¿Por qué necesitas UML?</h2>
+
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">❌ Sin UML (código directo)</div>
+                <pre>"Voy a hacer una API de usuarios..."
+[empieza a codear Controller]
+[se da cuenta que necesita validación]
+[añade Service]
+[se da cuenta que necesita BD]
+[refactoriza todo]
+[3 horas después: "debí haber pensado esto antes"]</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">✅ Con UML (diseño primero)</div>
+                <pre>1. Diseñas la arquitectura en 15 min
+2. Ves las capas, relaciones, flujos
+3. Detectas problemas ANTES de codear
+4. Codeas con claridad → menos refactoring</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="diagramas-esenciales">
+        <h2 class="section-title">📊 Los 3 Diagramas que SÍ o SÍ debes conocer</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">1️⃣ Diagrama de Clases</h3>
+            <dl>
+                <dt>¿Qué muestra?</dt>
+                <dd>Estructura de tu código (clases, atributos, métodos, relaciones)</dd>
+
+                <dt>¿Cuándo usarlo?</dt>
+                <dd>
+                    <ul>
+                        <li>Diseñar tu modelo de dominio</li>
+                        <li>Antes de crear entidades/DTOs</li>
+                        <li>Para explicar arquitectura a tu equipo</li>
+                    </ul>
+                </dd>
+            </dl>
+            <pre>Usuario
+--------
+- id: Long
+- email: String
+- password: String
+--------
++ login()
++ register()</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">2️⃣ Diagrama de Secuencia</h3>
+            <dl>
+                <dt>¿Qué muestra?</dt>
+                <dd>Flujo temporal de interacciones (quién llama a quién y en qué orden)</dd>
+
+                <dt>¿Cuándo usarlo?</dt>
+                <dd>
+                    <ul>
+                        <li>Antes de implementar un endpoint complejo</li>
+                        <li>Para entender flujos de autenticación</li>
+                        <li>Cuando hay múltiples servicios comunicándose</li>
+                    </ul>
+                </dd>
+            </dl>
+            <pre>Usuario → Controller → Service → Repository → BD
+         (POST)       (validar) (guardar)   (INSERT)</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">3️⃣ Diagrama de Arquitectura/Componentes</h3>
+            <dl>
+                <dt>¿Qué muestra?</dt>
+                <dd>Capas del sistema, módulos, dependencias</dd>
+
+                <dt>¿Cuándo usarlo?</dt>
+                <dd>
+                    <ul>
+                        <li>Al empezar un proyecto (arquitectura hexagonal, MVC, etc.)</li>
+                        <li>Para documentar microservicios</li>
+                        <li>Cuando explicas el proyecto en una entrevista</li>
+                    </ul>
+                </dd>
+            </dl>
+            <pre>Frontend (React)
+    ↓
+API REST (Spring Boot)
+    ↓
+Base de Datos (PostgreSQL)</pre>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="metodo-tradicional">
+        <h2 class="section-title">🛠️ Método Tradicional vs Moderno</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">❌ Método Tradicional (2010-2020)</h3>
+            <div class="card">
+                <div class="card-header">Herramientas Pesadas</div>
+                <ul>
+                    <li>Enterprise Architect ($$$)</li>
+                    <li>StarUML ($)</li>
+                    <li>Draw.io (gratis pero manual)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Problemas</div>
+                <ul>
+                    <li>❌ Archivos <code>.xml</code> o <code>.asta</code> que nadie puede abrir</li>
+                    <li>❌ No están en Git (versionado imposible)</li>
+                    <li>❌ Desactualizados en 2 semanas (nadie los mantiene)</li>
+                    <li>❌ No se pueden revisar en PRs</li>
+                    <li>❌ La IA no puede leerlos</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-danger">
+                <strong>Resultado:</strong> Diagramas que se hacen una vez y se olvidan. "Los diagramas son mentira, mira el código"
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">✅ Método Moderno: Diagrams as Code</h3>
+            <div class="card">
+                <div class="card-header">Filosofía</div>
+                <p>Los diagramas son texto (código) que se renderiza visualmente.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Ventajas</div>
+                <ul>
+                    <li>✅ Viven en Git junto al código</li>
+                    <li>✅ Se versionan (diff, blame, history)</li>
+                    <li>✅ Se revisan en PRs</li>
+                    <li>✅ La IA puede generarlos y leerlos</li>
+                    <li>✅ Se actualizan fácilmente (editas texto, no arrastras cajitas)</li>
+                    <li>✅ Funcionan en Notion, GitHub, GitLab, VSCode, Cursor...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="ecosistema-mermaid">
+        <h2 class="section-title">🧩 El Ecosistema: Mermaid y Alternativas</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">🌟 Mermaid (EL ESTÁNDAR)</h3>
+            <div class="card">
+                <div class="card-header">¿Qué es?</div>
+                <p>"Markdown para diagramas". Es sintaxis de texto que se convierte en diagramas.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">¿Por qué es el estándar?</div>
+                <ul>
+                    <li>✅ Nativo en GitHub, GitLab, Notion, Obsidian</li>
+                    <li>✅ La IA lo entiende perfectamente (GPT, Claude, etc.)</li>
+                    <li>✅ Sintaxis simple y legible</li>
+                    <li>✅ Gratis y open source</li>
+                    <li>✅ Funciona en Cursor directamente</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Ejemplo</div>
+                <pre>```mermaid
+classDiagram
+    class Usuario {
+        +Long id
+        +String email
+        +login()
+    }
+```</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Cuándo usar Mermaid</div>
+                <ul>
+                    <li>Documentación en repos</li>
+                    <li>Diseño rápido con IA</li>
+                    <li>Proyectos colaborativos en GitHub</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">🎨 Alternativas Visuales con IA</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Herramienta</th>
+                        <th>Pros</th>
+                        <th>Contras</th>
+                        <th>Uso Recomendado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Eraser.io</strong></td>
+                        <td>
+                            <span class="badge badge-success">✅ IA desde prompts</span><br>
+                            <span class="badge badge-success">✅ Estilo profesional</span><br>
+                            <span class="badge badge-success">✅ Colaboración real-time</span>
+                        </td>
+                        <td><span class="badge badge-danger">❌ No está en Git</span></td>
+                        <td>Presentaciones, arquitectura compleja</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Whimsical AI</strong></td>
+                        <td>
+                            <span class="badge badge-success">✅ IA para wireframes</span><br>
+                            <span class="badge badge-success">✅ Muy visual</span>
+                        </td>
+                        <td><span class="badge badge-danger">❌ No es código</span></td>
+                        <td>Diseño inicial de interfaces</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PlantUML</strong></td>
+                        <td>
+                            <span class="badge badge-success">✅ Más potente</span><br>
+                            <span class="badge badge-success">✅ Más tipos de diagramas</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-warning">⚠️ Sintaxis compleja</span><br>
+                            <span class="badge badge-danger">❌ Menos integración</span>
+                        </td>
+                        <td>Proyectos enterprise que ya lo usan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Excalidraw</strong></td>
+                        <td><span class="badge badge-success">✅ Estilo sketch</span></td>
+                        <td>
+                            <span class="badge badge-danger">❌ Manual</span><br>
+                            <span class="badge badge-danger">❌ No IA</span>
+                        </td>
+                        <td>Brainstorming inicial, wireframes casuales</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="ia-uml">
+        <h2 class="section-title">🤖 Cómo la IA cambió el juego con UML</h2>
+
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">❌ Antes de la IA</div>
+                <pre>Tú → 30 min dibujando cajitas en Draw.io
+Tú → Ajustando flechas manualmente
+Tú → Exportando imagen
+Tú → Olvidando actualizar cuando cambias el código</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">✅ Con IA (Cursor, ChatGPT, Claude)</div>
+                <pre>Tú → "Analiza mi proyecto y crea un diagrama de clases"
+IA → [genera Mermaid en 10 segundos]
+Tú → Revisas, ajustas, acepta
+Tú → git commit -m "docs: add class diagram"</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">✅ DO's (Haz esto)</h3>
+
+            <div class="card">
+                <div class="card-header">1. Dale contexto completo</div>
+                <div class="grid-2">
+                    <div>
+                        <p><span class="badge badge-danger">❌ Mal:</span></p>
+                        <pre>"Hazme un diagrama"</pre>
+                    </div>
+                    <div>
+                        <p><span class="badge badge-success">✅ Bien:</span></p>
+                        <pre>"Analiza src/domain/ y crea un diagrama de clases
+mostrando las relaciones entre entidades"</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">2. Especifica el tipo de diagrama</div>
+                <pre>✅ "Diagrama de secuencia para el flujo de login"
+✅ "Diagrama de arquitectura hexagonal"</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">3. Pide formato Mermaid explícitamente</div>
+                <pre>✅ "Genera un diagrama Mermaid de clases"</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">4. Itera sobre el resultado</div>
+                <pre>"Añade colores a las capas"
+"Muestra solo las clases públicas"
+"Simplifica, demasiado detalle"</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">5. Siempre revisa el diff</div>
+                <ul>
+                    <li>La IA puede inventar clases que no existen</li>
+                    <li>Puede omitir relaciones importantes</li>
+                    <li><strong>Tú eres la arquitecta, ella es la dibujante</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">❌ DON'Ts (No hagas esto)</h3>
+
+            <div class="alert alert-danger">
+                <ul>
+                    <li><strong>No aceptes sin revisar:</strong> La IA puede alucinar métodos o clases</li>
+                    <li><strong>No pidas "el diagrama perfecto":</strong> Empieza simple, luego refina</li>
+                    <li><strong>No uses IA para diagramas de negocio:</strong> La IA no conoce TUS reglas de negocio</li>
+                    <li><strong>No confíes en diagramas de proyectos que la IA no ve:</strong> Si usas ChatGPT web, no tiene tu código. Cursor sí tiene contexto</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="workflow-ia">
+        <h2 class="section-title">🎯 Workflow Recomendado: UML con IA</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 1: Diseño mental (5 min)</h3>
+            <pre>Tú piensas: "Necesito un módulo de autenticación con JWT"</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 2: Prompt a la IA (2 min)</h3>
+            <pre>En Cursor Agent Mode:
+"Crea un diagrama de secuencia Mermaid mostrando el flujo:
+1. Usuario hace POST /login
+2. Controller valida credenciales
+3. AuthService genera JWT
+4. Responde con token
+Guárdalo en docs/diagrams/auth-flow.md"</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 3: Review del diagrama (2 min)</h3>
+            <pre>Verificas:
+- ¿Tiene sentido el flujo?
+- ¿Falta algún paso?
+- ¿Es legible?</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 4: Iterar si es necesario (2 min)</h3>
+            <pre>"Añade el caso de error cuando las credenciales son inválidas"</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 5: Codear con el diagrama como referencia (30 min)</h3>
+            <pre>Ahora SÍ, con el mapa claro, codeas rápido y sin dudar.</pre>
+        </div>
+
+        <div class="alert alert-success">
+            <h4>⏱️ Comparación de Tiempo</h4>
+            <div class="grid-2">
+                <div>
+                    <p><strong>Con UML:</strong></p>
+                    <p>11 min de diseño + 30 min de código = <strong>41 minutos</strong> de trabajo estructurado</p>
+                </div>
+                <div>
+                    <p><strong>Sin UML:</strong></p>
+                    <p>1 hora de código + 30 min de refactoring = <strong>90 minutos</strong> de frustración</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section" id="recursos">
+        <h2 class="section-title">📚 Recursos para Aprender Más</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Tutoriales Mermaid</h3>
+            <ul>
+                <li><strong>Mermaid Live Editor:</strong> https://mermaid.live → Prueba sintaxis en vivo</li>
+                <li><strong>Mermaid Docs:</strong> https://mermaid.js.org → Documentación oficial</li>
+                <li><strong>Mermaid en GitHub:</strong> https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams</li>
+            </ul>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Herramientas</h3>
+            <ul>
+                <li><strong>Eraser.io:</strong> https://eraser.io → Diagramas técnicos con IA</li>
+                <li><strong>Whimsical:</strong> https://whimsical.com → Colaboración visual</li>
+                <li><strong>PlantUML:</strong> https://plantuml.com → Alternativa más potente</li>
+            </ul>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">🎓 Ejercicio Práctico</h3>
+            <div class="card">
+                <div class="card-header">Challenge: Documenta tu último proyecto</div>
+                <ol>
+                    <li><strong>Elige un proyecto</strong> (puede ser pequeño)</li>
+                    <li><strong>Usa Cursor Agent Mode</strong> para generar:
+                        <ul>
+                            <li>Diagrama de arquitectura general</li>
+                            <li>Diagrama de clases del dominio</li>
+                            <li>Diagrama de secuencia de 1 endpoint</li>
+                        </ul>
+                    </li>
+                    <li><strong>Revisión crítica:</strong>
+                        <ul>
+                            <li>¿La IA entendió bien tu código?</li>
+                            <li>¿Qué falta?</li>
+                            <li>¿Qué sobra?</li>
+                        </ul>
+                    </li>
+                    <li><strong>Guárdalos en</strong> <code>docs/diagrams/</code></li>
+                    <li><strong>Commit y push</strong></li>
+                </ol>
+                <div class="alert alert-info">
+                    <strong>Objetivo:</strong> Que tu README tenga diagramas que REALMENTE expliquen qué hace tu proyecto.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section">
+        <h2 class="section-title">💡 Key Takeaways</h2>
+
+        <div class="card">
+            <h3>1. UML = Pensar antes de codear</h3>
+            <p>No es burocracia, es ahorro de tiempo</p>
+        </div>
+
+        <div class="card">
+            <h3>2. Mermaid = Código, no imágenes</h3>
+            <p>Vive en Git, la IA lo entiende</p>
+        </div>
+
+        <div class="card">
+            <h3>3. IA = Turbo para UML</h3>
+            <p>Pero TÚ revisas, TÚ decides</p>
+        </div>
+
+        <div class="card">
+            <h3>4. 3 diagramas esenciales</h3>
+            <ul>
+                <li><strong>Clases:</strong> estructura</li>
+                <li><strong>Secuencia:</strong> flujo</li>
+                <li><strong>Arquitectura:</strong> capas</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>5. Regla de oro</h3>
+            <p><strong>15 min de diseño > 3 horas de refactoring</strong></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">🎓 Glosario Rápido</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Término</th>
+                    <th>Significado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>UML</strong></td>
+                    <td>Unified Modeling Language - Lenguaje de modelado de software</td>
+                </tr>
+                <tr>
+                    <td><strong>Diagrama de Clases</strong></td>
+                    <td>Muestra estructura: clases, atributos, métodos, relaciones</td>
+                </tr>
+                <tr>
+                    <td><strong>Diagrama de Secuencia</strong></td>
+                    <td>Muestra flujo temporal de interacciones entre componentes</td>
+                </tr>
+                <tr>
+                    <td><strong>Diagrama de Componentes</strong></td>
+                    <td>Muestra arquitectura: capas, módulos, dependencias</td>
+                </tr>
+                <tr>
+                    <td><strong>Mermaid</strong></td>
+                    <td>Sintaxis de texto para crear diagramas (Diagrams as Code)</td>
+                </tr>
+                <tr>
+                    <td><strong>Diagrams as Code</strong></td>
+                    <td>Filosofía de escribir diagramas como código versionable</td>
+                </tr>
+                <tr>
+                    <td><strong>PlantUML</strong></td>
+                    <td>Alternativa a Mermaid, más potente pero compleja</td>
+                </tr>
+                <tr>
+                    <td><strong>Eraser.io</strong></td>
+                    <td>Herramienta visual con IA para diagramas técnicos</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="alert alert-success">
+        <h3>✨ Mensaje Final</h3>
+        <p><strong>Recordad:</strong></p>
+        <p><em>"Eres arquitecta. La IA es tu asistente de dibujo técnico. 🏗️✨"</em></p>
+        <p><strong>No memorices sintaxis, entiende los conceptos:</strong></p>
+        <ul>
+            <li>UML es pensar estructurado antes de codear</li>
+            <li>Diagrams as Code = versionado + colaboración</li>
+            <li>La IA acelera el proceso, pero tú lideras el diseño</li>
+            <li>15 minutos de UML te ahorran horas de refactoring</li>
+        </ul>
+        <p class="text-center mt-2"><strong>Vosotras sois arquitectas, no solo programadoras. 🚀</strong></p>
+    </div>
+
+    <div class="footer">
+        <p>Creado con 💙 por <strong style="color: white;">Irina Ichim</strong></p>
+        <p>🎓 Curso de IA y Arquitectura de Software | Enero 2025</p>
+        <p class="mt-1">📌 <strong style="color: white;">Recursos de Aprendizaje:</strong></p>
+        <p><a href="https://mermaid.live" style="color: white;">Mermaid Live Editor: https://mermaid.live</a></p>
+        <p style="color: white;">✨ Practica y crea tus propios diagramas profesionales.</p>
+    </div>
+
+    <!-- Botón de volver arriba -->
+    <a href="#" class="scroll-to-top" id="scrollToTop" title="Volver arriba">
+        ↑
+    </a>
+
+    <script src="main.js"></script>
+</body>
+</html>
