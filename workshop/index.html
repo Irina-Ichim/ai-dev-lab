@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: Arquitectura y Diagramas con IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Asap+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Workshop: Arquitectura y Diagramas con IA</h1>
+        <div class="subtitle">Spring Boot + React + Mermaid + Gamma AI</div>
+    </div>
+
+    <div class="toc">
+        <h2>Contenido del Workshop</h2>
+        <ul>
+            <li><a href="#objetivo">Objetivo del Workshop</a></li>
+            <li><a href="#paso0">Paso 0: Formar Equipos</a></li>
+            <li><a href="#proyectos">Proyectos Disponibles</a></li>
+            <li><a href="#fase1">Fase 1: Crear Arquitectura con IA</a></li>
+            <li><a href="#fase2">Fase 2: Crear Diagramas con Cursor</a></li>
+            <li><a href="#fase3">Fase 3: Contenido de Slides</a></li>
+            <li><a href="#fase4">Fase 4: Presentacion con Gamma</a></li>
+            <li><a href="#fase5">Fase 5: Presentacion al Grupo</a></li>
+            <li><a href="#checklist">Checklist Final</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+    </div>
+
+    <!-- OBJETIVO -->
+    <div class="section" id="objetivo">
+        <h2 class="section-title">Objetivo del Workshop</h2>
+        <div class="card">
+            <p>Diseñar la arquitectura de un proyecto <strong>Spring Boot + React</strong>, generar diagramas UML con <strong>Cursor AI</strong> y crear una presentación profesional con <strong>Gamma AI</strong>.</p>
+            <p class="mt-1"><strong>Duración total:</strong> ~45 minutos</p>
+        </div>
+    </div>
+
+    <!-- PASO 0 -->
+    <div class="section" id="paso0">
+        <h2 class="section-title">Paso 0: Formar Equipos y Elegir Proyecto (3 min)</h2>
+
+        <div class="card">
+            <div class="card-header">Equipos</div>
+            <p>2-3 personas por equipo</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Instrucciones</div>
+            <ol>
+                <li>Cada equipo elige <strong>UNO</strong> de los 7 proyectos disponibles</li>
+                <li>Leer rápidamente la descripción del proyecto</li>
+                <li>Asegurarse de que entienden qué hace el proyecto</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PROYECTOS -->
+    <div class="section" id="proyectos">
+        <h2 class="section-title">Proyectos Disponibles</h2>
+
+        <div class="grid-2">
+            <!-- Proyecto 1 -->
+            <div class="card project-card blue">
+                <div class="card-header">Proyecto 1: Sistema de Reserva de Salas</div>
+                <p><strong>Qué hace:</strong> App para reservar salas de reuniones en una oficina</p>
+                <h4>Funcionalidades:</h4>
+                <ul>
+                    <li>Ver salas disponibles con capacidad y equipamiento</li>
+                    <li>Reservar sala (fecha, hora inicio, hora fin)</li>
+                    <li>Ver mis reservas activas</li>
+                    <li>Cancelar reserva</li>
+                    <li>Dashboard admin: ver todas las reservas del día</li>
+                </ul>
+            </div>
+
+            <!-- Proyecto 2 -->
+            <div class="card project-card green">
+                <div class="card-header">Proyecto 2: Gestor de Recetas de Cocina</div>
+                <p><strong>Qué hace:</strong> App para guardar y compartir recetas</p>
+                <h4>Funcionalidades:</h4>
+                <ul>
+                    <li>Crear receta (nombre, ingredientes, pasos, tiempo, categoría)</li>
+                    <li>Ver todas las recetas con filtro por categoría</li>
+                    <li>Marcar recetas como favoritas</li>
+                    <li>Buscar recetas por ingrediente</li>
+                    <li>Ver detalle de una receta</li>
+                </ul>
+            </div>
+
+            <!-- Proyecto 3 -->
+            <div class="card project-card purple">
+                <div class="card-header">Proyecto 3: Sistema de Préstamos de Biblioteca</div>
+                <p><strong>Qué hace:</strong> Gestión de préstamos de libros</p>
+                <h4>Funcionalidades:</h4>
+                <ul>
+                    <li>Catálogo de libros (título, autor, ISBN, disponibilidad)</li>
+                    <li>Buscar libros</li>
+                    <li>Solicitar préstamo (máx 3 libros por usuario)</li>
+                    <li>Devolver libro</li>
+                    <li>Ver historial de préstamos</li>
+                </ul>
+            </div>
+
+            <!-- Proyecto 4 -->
+            <div class="card project-card yellow">
+                <div class="card-header">Proyecto 4: Tracker de Hábitos Diarios</div>
+                <p><strong>Qué hace:</strong> App para seguir hábitos saludables</p>
+                <h4>Funcionalidades:</h4>
+                <ul>
+                    <li>Crear hábito (nombre, frecuencia)</li>
+                    <li>Marcar hábito completado hoy</li>
+                    <li>Ver racha (días consecutivos)</li>
+                    <li>Dashboard con estadísticas del mes</li>
+                    <li>Lista de hábitos activos</li>
+                </ul>
+            </div>
+
+            <!-- Proyecto 5 -->
+            <div class="card project-card orange">
+                <div class="card-header">Proyecto 5: Gestor de Gastos Personales</div>
+                <p><strong>Qué hace:</strong> App para controlar gastos mensuales</p>
+                <h4>Funcionalidades:</h4>
+                <ul>
+                    <li>Registrar gasto (monto, categoría, fecha, descripción)</li>
+                    <li>Ver gastos del mes</li>
+                    <li>Filtrar por categoría</li>
+                    <li>Ver total gastado por categoría</li>
+                    <li>Gráfico de gastos mensuales</li>
+                </ul>
+            </div>
+
+            <!-- Proyecto 6 -->
+            <div class="card project-card red">
+                <div class="card-header">Proyecto 6: Sistema de Turnos para Clínica</div>
+                <p><strong>Qué hace:</strong> Gestión de citas médicas</p>
+                <h4>Funcionalidades:</h4>
+                <ul>
+                    <li>Ver turnos disponibles por médico y fecha</li>
+                    <li>Solicitar turno</li>
+                    <li>Ver mis turnos próximos</li>
+                    <li>Cancelar turno</li>
+                    <li>Dashboard médico: agenda del día</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Proyecto 7 -->
+        <div class="card project-card brown">
+            <div class="card-header">Proyecto 7: Marketplace de Productos Artesanales</div>
+            <p><strong>Qué hace:</strong> Plataforma de compra-venta simple</p>
+            <h4>Funcionalidades:</h4>
+            <ul>
+                <li>Vendedor: crear producto (nombre, precio, stock)</li>
+                <li>Comprador: ver catálogo, filtrar por categoría</li>
+                <li>Añadir al carrito (sin pago real)</li>
+                <li>Ver mis productos (vendedor)</li>
+                <li>Ver mis pedidos (comprador)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- FASE 1 -->
+    <div class="section" id="fase1">
+        <h2 class="section-title">Fase 1: Crear Arquitectura con Claude/ChatGPT (5 min)</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 1.1: Ir a Claude.ai o ChatGPT</h3>
+            <div class="card">
+                <p>Abrir en el navegador:</p>
+                <ul>
+                    <li><strong>Claude:</strong> <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">https://claude.ai</a></li>
+                    <li><strong>ChatGPT:</strong> <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">https://chat.openai.com</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 1.2: Usar el Prompt de Arquitectura</h3>
+            <div class="alert alert-warning">
+                <strong>IMPORTANTE:</strong> Copiad y pegad este prompt EXACTAMENTE, solo cambiando [VUESTRO PROYECTO]:
+            </div>
+            <pre>Soy desarrolladora full-stack con Java Spring Boot y React.
+
+Quiero crear [DESCRIPCIÓN DE VUESTRO PROYECTO - copiáis de arriba].
+
+Necesito una arquitectura SIMPLE Y CLARA con:
+
+BACKEND (Spring Boot):
+- Qué Controllers necesito (con sus endpoints principales)
+- Qué Services con su lógica
+- Qué Repositories
+- Qué Entities/Models (con sus atributos principales)
+- DTOs si son necesarios
+
+FRONTEND (React):
+- Qué Pages/Vistas principales
+- Qué Components clave
+- Qué llamadas a la API hace cada page
+
+BASE DE DATOS:
+- Qué tablas necesito
+- Relaciones entre tablas
+
+Dame la estructura en formato texto claro, bien organizado y SIN código.
+Solo la arquitectura y nombres de clases/componentes.</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Ejemplo para Proyecto 1 (Reserva de Salas)</h3>
+            <pre>Soy desarrolladora full-stack con Java Spring Boot y React.
+
+Quiero crear una app para reservar salas de reuniones en una oficina donde:
+- Ver salas disponibles con capacidad y equipamiento
+- Reservar sala (fecha, hora inicio, hora fin)
+- Ver mis reservas activas
+- Cancelar reserva
+- Dashboard admin: ver todas las reservas del día
+
+Necesito una arquitectura SIMPLE Y CLARA con:
+
+BACKEND (Spring Boot):
+- Qué Controllers necesito (con sus endpoints principales)
+- Qué Services con su lógica
+- Qué Repositories
+- Qué Entities/Models (con sus atributos principales)
+- DTOs si son necesarios
+
+FRONTEND (React):
+- Qué Pages/Vistas principales
+- Qué Components clave
+- Qué llamadas a la API hace cada page
+
+BASE DE DATOS:
+- Qué tablas necesito
+- Relaciones entre tablas
+
+Dame la estructura en formato texto claro, bien organizado y SIN código.
+Solo la arquitectura y nombres de clases/componentes.</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 1.3: Copiar la Respuesta</h3>
+            <div class="card">
+                <p>Claude/ChatGPT os devolverá algo como esto:</p>
+            </div>
+            <pre>BACKEND (Spring Boot):
+
+Controllers:
+- RoomController
+  - GET /api/rooms → listar todas las salas
+  - GET /api/rooms/{id} → obtener detalle de sala
+  - POST /api/rooms → crear sala (admin)
+
+- ReservationController
+  - GET /api/reservations → listar mis reservas
+  - POST /api/reservations → crear reserva
+  - DELETE /api/reservations/{id} → cancelar reserva
+  - GET /api/reservations/today → reservas del día (admin)
+
+Services:
+- RoomService
+  - Lógica: obtener salas disponibles en un horario
+  - Validar capacidad y equipamiento
+
+- ReservationService
+  - Lógica: verificar disponibilidad antes de reservar
+  - Validar que la sala esté libre en el horario
+  - No permitir reservas en el pasado
+
+Repositories:
+- RoomRepository extends JpaRepository&lt;Room, Long&gt;
+- ReservationRepository extends JpaRepository&lt;Reservation, Long&gt;
+
+Entities:
+- Room
+  - id: Long
+  - name: String
+  - capacity: Integer
+  - equipment: String (proyector, pizarra, etc)
+  - isAvailable: Boolean
+
+- Reservation
+  - id: Long
+  - room: Room (ManyToOne)
+  - userName: String
+  - reservationDate: LocalDate
+  - startTime: LocalTime
+  - endTime: LocalTime
+
+DTOs:
+- ReservationRequestDTO (userName, roomId, date, startTime, endTime)
+- RoomAvailabilityDTO (room info + available slots)
+
+FRONTEND (React):
+
+Pages:
+- HomePage: vista general con lista de salas
+- RoomDetailPage: detalle de sala + formulario de reserva
+- MyReservationsPage: lista de mis reservas
+- AdminDashboardPage: todas las reservas del día
+
+Components:
+- RoomCard: muestra una sala en la lista
+- ReservationForm: formulario para crear reserva
+- ReservationList: lista de reservas con botón cancelar
+- TimeSlotPicker: selector de hora inicio/fin
+
+BASE DE DATOS:
+
+Tablas:
+- rooms (id, name, capacity, equipment, is_available)
+- reservations (id, room_id, user_name, reservation_date, start_time, end_time)
+
+Relaciones:
+- reservations.room_id → rooms.id (ManyToOne)</pre>
+
+            <div class="alert alert-success">
+                <strong>COPIAD TODO ESTO</strong> → Lo necesitáis para el siguiente paso
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- FASE 2 -->
+    <div class="section" id="fase2">
+        <h2 class="section-title">Fase 2: Crear Diagramas con Cursor (15 min)</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 2.1: Abrir Cursor</h3>
+            <div class="card">
+                <ol>
+                    <li>Abrir <strong>Cursor IDE</strong></li>
+                    <li>Crear una nueva carpeta vacía o abrir una existente</li>
+                    <li><strong>NO necesitáis crear ningún proyecto Java ni React</strong></li>
+                    <li>Solo vais a crear un archivo Markdown</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 2.2: Crear el Archivo de Arquitectura</h3>
+            <div class="card">
+                <ol>
+                    <li>En Cursor, crear un nuevo archivo llamado: <code>arquitectura.md</code></li>
+                    <li>Pegar la respuesta completa de Claude/ChatGPT que copiásteis antes</li>
+                    <li>Guardar el archivo (<kbd>Cmd+S</kbd> o <kbd>Ctrl+S</kbd>)</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 2.3: Usar Cursor Agent Mode para Generar Diagramas</h3>
+            <div class="alert alert-warning">
+                <strong>AHORRO DE TOKENS:</strong> Solo vamos a pedir 2 diagramas para no gastar muchos requests
+            </div>
+
+            <div class="card">
+                <div class="card-header">Opción A: Equipos 1, 3, 5, 7 → Arquitectura + Clases</div>
+                <ol>
+                    <li>Abrir <strong>Agent Mode</strong>: <kbd>Cmd + I</kbd> (Mac) o <kbd>Ctrl + I</kbd> (Windows/Linux)</li>
+                    <li>Pegar este prompt:</li>
+                </ol>
+                <pre>Analiza la arquitectura que está en este archivo y crea 2 diagramas Mermaid:
+
+1. DIAGRAMA DE ARQUITECTURA GENERAL (graph TB):
+   - Muestra Frontend (React) con las pages principales
+   - Muestra Backend (Spring Boot) con las 3 capas: Controllers → Services → Repositories
+   - Muestra Base de Datos (PostgreSQL)
+   - Muestra las flechas de comunicación HTTP entre capas
+   - Usa colores para diferenciar: Frontend en azul, Backend en morado, BD en verde
+
+2. DIAGRAMA DE CLASES (classDiagram):
+   - Muestra todas las Entities con sus atributos
+   - Muestra las relaciones entre entidades (OneToMany, ManyToOne, etc)
+   - Indica el tipo de dato de cada atributo
+
+Genera ambos diagramas en bloques ```mermaid dentro de este mismo archivo.
+Añádelos AL FINAL del archivo después de todo el contenido actual.</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Opción B: Equipos 2, 4, 6 → Arquitectura + Secuencia</div>
+                <ol>
+                    <li>Abrir <strong>Agent Mode</strong>: <kbd>Cmd + I</kbd> (Mac) o <kbd>Ctrl + I</kbd> (Windows/Linux)</li>
+                    <li>Pegar este prompt:</li>
+                </ol>
+                <pre>Analiza la arquitectura que está en este archivo y crea 2 diagramas Mermaid:
+
+1. DIAGRAMA DE ARQUITECTURA GENERAL (graph TB):
+   - Muestra Frontend (React) con las pages principales
+   - Muestra Backend (Spring Boot) con las 3 capas: Controllers → Services → Repositories
+   - Muestra Base de Datos (PostgreSQL)
+   - Muestra las flechas de comunicación HTTP entre capas
+   - Usa colores para diferenciar: Frontend en azul, Backend en morado, BD en verde
+
+2. DIAGRAMA DE SECUENCIA (sequenceDiagram):
+   - Muestra el flujo de la funcionalidad PRINCIPAL del proyecto
+   - Ejemplo: "Usuario crea una reserva" o "Usuario registra un gasto"
+   - Muestra: User → Frontend → Controller → Service → Repository → Database
+   - Incluye las respuestas de vuelta
+
+Genera ambos diagramas en bloques ```mermaid dentro de este mismo archivo.
+Añádelos AL FINAL del archivo después de todo el contenido actual.</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 2.4: Revisar lo que Cursor Generó</h3>
+            <div class="card">
+                <p><strong>Cursor habrá añadido los diagramas al final del archivo.</strong></p>
+                <p>Ejemplo de lo que veréis:</p>
+            </div>
+            <pre>[... toda vuestra arquitectura anterior ...]
+
+---
+
+## DIAGRAMAS
+
+### Diagrama de Arquitectura General
+
+```mermaid
+graph TB
+    subgraph Frontend[React Frontend]
+        HP[HomePage]
+        RDP[RoomDetailPage]
+        MRP[MyReservationsPage]
+    end
+
+    subgraph Backend[Spring Boot Backend]
+        RC[RoomController]
+        RSC[ReservationController]
+        RS[RoomService]
+        RES[ReservationService]
+        RR[RoomRepository]
+        RER[ReservationRepository]
+    end
+
+    DB[(PostgreSQL)]
+
+    HP -->|GET /api/rooms| RC
+    RDP -->|POST /api/reservations| RSC
+    RC --> RS
+    RSC --> RES
+    RS --> RR
+    RES --> RER
+    RR --> DB
+    RER --> DB
+
+    style Frontend fill:#6366f1,color:#fff
+    style Backend fill:#8b5cf6,color:#fff
+    style DB fill:#10b981,color:#fff
+```
+
+### Diagrama de Clases
+
+```mermaid
+classDiagram
+    class Room {
+        +Long id
+        +String name
+        +Integer capacity
+        +String equipment
+        +Boolean isAvailable
+    }
+
+    class Reservation {
+        +Long id
+        +String userName
+        +LocalDate reservationDate
+        +LocalTime startTime
+        +LocalTime endTime
+    }
+
+    Room "1" --> "many" Reservation : has
+```</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 2.5: Ver los Diagramas Renderizados</h3>
+            <div class="card">
+                <p><strong>Para ver cómo se ven los diagramas visuales:</strong></p>
+                <ol>
+                    <li>En Cursor, con el archivo <code>arquitectura.md</code> abierto</li>
+                    <li>Click derecho en el archivo → <strong>"Open Preview"</strong></li>
+                    <li>O usar atajo: <kbd>Cmd + Shift + V</kbd> (Mac) o <kbd>Ctrl + Shift + V</kbd> (Windows)</li>
+                </ol>
+                <p><strong>Se abrirá un panel al lado mostrando los diagramas renderizados</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 2.6: Hacer Screenshots de los Diagramas</h3>
+            <div class="card">
+                <p><strong>Necesitáis capturas de pantalla para Gamma:</strong></p>
+                <ol>
+                    <li>Aseguraos de que el preview está abierto y se ven los diagramas</li>
+                    <li>Hacer screenshot de cada diagrama:
+                        <ul>
+                            <li><strong>Mac:</strong> <kbd>Cmd + Shift + 4</kbd> → seleccionar área</li>
+                            <li><strong>Windows:</strong> <kbd>Win + Shift + S</kbd> → seleccionar área</li>
+                        </ul>
+                    </li>
+                    <li>Guardar las imágenes como:
+                        <ul>
+                            <li><code>diagrama-arquitectura.png</code></li>
+                            <li><code>diagrama-clases.png</code> (o <code>diagrama-secuencia.png</code>)</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <div class="alert alert-info">
+                <strong>TIP:</strong> Ampliad el zoom del preview para que se vean bien grandes
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- FASE 3 -->
+    <div class="section" id="fase3">
+        <h2 class="section-title">Fase 3: Crear Contenido de Slides con Claude/ChatGPT (5 min)</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 3.1: Volver a Claude/ChatGPT</h3>
+            <div class="card">
+                <p><strong>En la MISMA conversación donde ya tenéis la arquitectura</strong>, añadir este nuevo mensaje:</p>
+            </div>
+            <pre>Perfecto, ahora necesito crear una presentación en Gamma.
+
+Ayúdame a crear el contenido para 4 slides:
+
+SLIDE 1 - PORTADA:
+- Título atractivo para mi proyecto
+- Subtítulo que explique en 1 frase qué hace
+- Stack: Java Spring Boot + React + PostgreSQL
+
+SLIDE 2 - ¿QUÉ RESUELVE?:
+- Descripción breve del proyecto (2-3 líneas)
+- Lista de 4-5 funcionalidades principales (bullets muy cortos)
+
+SLIDE 3 - ARQUITECTURA DEL SISTEMA:
+- Título: "Arquitectura del Sistema"
+- 3-4 bullets explicando:
+  * Capa Frontend (qué hace)
+  * Capa Backend (qué hace)
+  * Comunicación entre capas
+  * Base de datos
+[Aquí voy a poner la imagen del diagrama de arquitectura]
+
+SLIDE 4 - MODELO DE DATOS (o FLUJO):
+- Título: "Modelo de Datos" (o "Flujo de Secuencia" si hicisteis ese diagrama)
+- 2-3 bullets explicando las entidades principales y sus relaciones
+  (o explicando el flujo paso a paso)
+[Aquí voy a poner la imagen del diagrama de clases/secuencia]
+
+Dame SOLO el texto para cada slide, sin formato markdown, en español, texto claro y corto.</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 3.2: Copiar el Contenido de los Slides</h3>
+            <div class="card">
+                <p>Claude/ChatGPT os devolverá algo así:</p>
+            </div>
+            <pre>SLIDE 1 - PORTADA
+Título: Sistema de Reserva de Salas Inteligente
+Subtítulo: Gestión eficiente de espacios de trabajo colaborativos
+Stack: Java Spring Boot + React + PostgreSQL
+
+SLIDE 2 - ¿QUÉ RESUELVE?
+Descripción: Plataforma digital para optimizar el uso de salas de reuniones,
+eliminando conflictos de reservas y facilitando la gestión de espacios en tiempo real.
+
+Funcionalidades:
+• Visualización en tiempo real de salas disponibles
+• Reserva rápida con validación de disponibilidad
+• Gestión de reservas personales (ver y cancelar)
+• Panel administrativo con vista diaria completa
+• Filtros por capacidad y equipamiento
+
+SLIDE 3 - ARQUITECTURA DEL SISTEMA
+Título: Arquitectura del Sistema
+
+• Frontend React: Interfaz intuitiva con vistas de catálogo, detalle de salas y gestión de reservas
+• Backend Spring Boot: API REST con 3 capas (Controllers, Services, Repositories) que valida
+  disponibilidad y gestiona lógica de negocio
+• Comunicación: Peticiones HTTP (GET, POST, DELETE) entre cliente y servidor
+• Base de Datos PostgreSQL: Almacena información de salas y reservas con relaciones definidas
+
+SLIDE 4 - MODELO DE DATOS
+Título: Modelo de Datos
+
+• Entidad Room: Define salas con capacidad, equipamiento y estado de disponibilidad
+• Entidad Reservation: Registra reservas con fecha, horario y usuario asociado
+• Relación ManyToOne: Múltiples reservas pueden pertenecer a una misma sala</pre>
+
+            <div class="alert alert-success">
+                <strong>COPIAD TODO ESTE CONTENIDO</strong> → Lo usaréis en Gamma
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- FASE 4 -->
+    <div class="section" id="fase4">
+        <h2 class="section-title">Fase 4: Crear Presentación con Gamma (10 min)</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 4.1: Ir a Gamma.app</h3>
+            <div class="card">
+                <ol>
+                    <li>Abrir: <a href="https://gamma.app" target="_blank" rel="noopener noreferrer">https://gamma.app</a></li>
+                    <li>Si no tenéis cuenta, crear una (es gratis con email)</li>
+                    <li>Click en <strong>"Create new"</strong> o <strong>"Nueva presentación"</strong></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 4.2: Usar el Modo de IA de Gamma</h3>
+            <div class="card">
+                <ol>
+                    <li>Gamma os preguntará cómo queréis crear la presentación</li>
+                    <li>Seleccionar: <strong>"Generate with AI"</strong> o <strong>"Generar con IA"</strong></li>
+                    <li>Se abrirá un cuadro de texto</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 4.3: Pegar el Contenido en Gamma</h3>
+            <div class="card">
+                <p><strong>Pegar TODO el texto que copiásteis de Claude/ChatGPT:</strong></p>
+            </div>
+            <pre>[PEGÁIS AQUÍ TODO EL CONTENIDO DE LOS 4 SLIDES]
+
+Además:
+- Estilo: Moderno y profesional
+- Colores: Morado (#4737bb) y azul (#6366f1)
+- En Slide 3 y Slide 4, deja espacio para que yo añada imágenes de diagramas</pre>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 4.4: Dejar que Gamma Genere las Slides</h3>
+            <div class="card">
+                <p>Gamma tardará <strong>30-60 segundos</strong> en generar la presentación.</p>
+                <p><strong>Os mostrará un preview de las 4 slides ya creadas</strong></p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 4.5: Añadir las Imágenes de los Diagramas</h3>
+            <div class="card">
+                <ol>
+                    <li>Click en <strong>Slide 3</strong></li>
+                    <li>Buscar un área vacía o un placeholder de imagen</li>
+                    <li>Click en <strong>"+ Add image"</strong> o arrastrar directamente</li>
+                    <li>Subir la imagen <code>diagrama-arquitectura.png</code></li>
+                </ol>
+                <ol start="5">
+                    <li>Click en <strong>Slide 4</strong></li>
+                    <li>Hacer lo mismo con <code>diagrama-clases.png</code> o <code>diagrama-secuencia.png</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 4.6: Ajustes Finales (Opcional)</h3>
+            <div class="card">
+                <p><strong>Si tenéis tiempo:</strong></p>
+                <ul>
+                    <li>Cambiar colores de fondo si no os gustan</li>
+                    <li>Ajustar tamaño de las imágenes de los diagramas</li>
+                    <li>Cambiar fuentes si queréis</li>
+                </ul>
+                <p><strong>Si NO tenéis tiempo:</strong> ¡Dejadlo así! Gamma ya lo hace bonito por defecto</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 4.7: Guardar y Obtener el Link</h3>
+            <div class="card">
+                <ol>
+                    <li>En la esquina superior derecha: <strong>"Share"</strong> o <strong>"Compartir"</strong></li>
+                    <li>Copiar el link de la presentación</li>
+                    <li><strong>Este link lo usaréis para presentar</strong></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- FASE 5 -->
+    <div class="section" id="fase5">
+        <h2 class="section-title">Fase 5: Presentación al Grupo (12 min - 3 min por equipo)</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Estructura de la Presentación (3 min por equipo)</h3>
+
+            <div class="card">
+                <div class="card-header">Minuto 1: ¿Qué hace vuestro proyecto?</div>
+                <ul>
+                    <li>Mostrar Slide 1 y Slide 2</li>
+                    <li>Explicar en 1 frase qué problema resuelve</li>
+                    <li>Mencionar las funcionalidades clave</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Minuto 2: Arquitectura</div>
+                <ul>
+                    <li>Mostrar Slide 3 con el diagrama de arquitectura</li>
+                    <li>Explicar las capas: Frontend → Backend → BD</li>
+                    <li>Mencionar los controllers y services principales</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Minuto 3: Modelo de datos o flujo</div>
+                <ul>
+                    <li>Mostrar Slide 4 con el diagrama de clases/secuencia</li>
+                    <li>Explicar las entidades principales</li>
+                    <li>O explicar el flujo paso a paso si hicisteis secuencia</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Bonus 30 seg: ¿Qué aprendisteis?</div>
+                <ul>
+                    <li>¿La IA entendió bien vuestro proyecto?</li>
+                    <li>¿Algo os sorprendió?</li>
+                    <li>¿Cambiaríais algo?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CHECKLIST -->
+    <div class="section" id="checklist">
+        <h2 class="section-title">Checklist Final</h2>
+
+        <div class="card">
+            <p><strong>Antes de presentar, verificad que tenéis:</strong></p>
+            <ul class="checklist">
+                <li>Archivo <code>arquitectura.md</code> con la arquitectura completa</li>
+                <li>2 diagramas Mermaid generados por Cursor dentro del archivo</li>
+                <li>Screenshots de los diagramas</li>
+                <li>Presentación en Gamma con las 4 slides</li>
+                <li>Imágenes de los diagramas añadidas a las slides 3 y 4</li>
+                <li>Link de Gamma para compartir</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TROUBLESHOOTING -->
+    <div class="section" id="troubleshooting">
+        <h2 class="section-title">Troubleshooting (Si algo sale mal)</h2>
+
+        <div class="card">
+            <div class="card-header">"Cursor no me genera los diagramas"</div>
+            <p><strong>Solución:</strong></p>
+            <ol>
+                <li>Verificad que el prompt está bien copiado</li>
+                <li>Probad a simplificar: "Crea solo el diagrama de arquitectura en Mermaid"</li>
+                <li>Si sigue sin funcionar, pedid ayuda a Irina</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <div class="card-header">"No veo los diagramas renderizados en Cursor"</div>
+            <p><strong>Solución:</strong></p>
+            <ol>
+                <li>Aseguraos de que estáis en el archivo <code>.md</code> (Markdown)</li>
+                <li>Probad el atajo: <kbd>Cmd/Ctrl + Shift + V</kbd></li>
+                <li>Si no funciona, copiad el código Mermaid y probadlo en: <a href="https://mermaid.live" target="_blank" rel="noopener noreferrer">https://mermaid.live</a></li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <div class="card-header">"Gamma no me deja subir imágenes"</div>
+            <p><strong>Solución:</strong></p>
+            <ol>
+                <li>Verificad que las imágenes son PNG o JPG</li>
+                <li>Probad a arrastrar la imagen directamente a la slide</li>
+                <li>O usar el botón "+ Add content" → "Image"</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <div class="card-header">"Me quedé sin tokens de Cursor"</div>
+            <p><strong>Solución:</strong></p>
+            <ol>
+                <li>Cambiad de cuenta (usar otra persona del equipo)</li>
+                <li>O pedid ayuda a Irina para optimizar el prompt</li>
+                <li>O completad el workshop sin el paso de Cursor (usad solo Claude + Gamma)</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- OBJETIVOS DE APRENDIZAJE -->
+    <div class="section">
+        <h2 class="section-title">Objetivos de Aprendizaje</h2>
+
+        <div class="card">
+            <p><strong>Al terminar el workshop, habréis:</strong></p>
+            <ul>
+                <li>Diseñado una arquitectura completa de un proyecto real</li>
+                <li>Usado IA (Claude/ChatGPT) para pensar la estructura técnica</li>
+                <li>Generado diagramas UML automáticamente con Cursor</li>
+                <li>Aprendido sintaxis Mermaid sin estudiarla (viéndola generada)</li>
+                <li>Creado una presentación profesional con Gamma AI</li>
+                <li>Presentado vuestro proyecto ante compañeras</li>
+            </ul>
+            <p class="mt-1 text-center"><strong>Y todo en menos de 1 hora</strong></p>
+        </div>
+    </div>
+
+    <!-- KEY TAKEAWAY -->
+    <div class="alert alert-success">
+        <h3>Key Takeaway Final</h3>
+        <p class="text-center" style="font-size: 1.2rem; margin-top: 1rem;">
+            <em>"La IA no piensa por ti. Tú diseñas la arquitectura, la IA te ayuda a visualizarla y presentarla. El cerebro arquitecto eres TÚ."</em>
+        </p>
+    </div>
+
+    <div class="footer">
+        <p>Creado con amor por <strong style="color: white;">Irina Ichim</strong></p>
+        <p>Curso de IA y Arquitectura de Software</p>
+        <p class="mt-1">¡Mucha suerte y a disfrutar del workshop!</p>
+    </div>
+
+    <!-- Botón de volver arriba -->
+    <a href="#" class="scroll-to-top" id="scrollToTop" title="Volver arriba">
+        ↑
+    </a>
+
+    <script src="main.js"></script>
+</body>
+</html>
