@@ -213,6 +213,11 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
+.badge-figma {
+    background: linear-gradient(135deg, #a259ff, #f24e1e);
+    color: white;
+}
+
 /* Info Boxes */
 .info-box {
     padding: 25px;

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma: Tu Power-Up de Diseño - Cheat Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Asap+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Figma: Tu Power-Up de Diseño</h1>
+        <div class="subtitle">Guia Pro con IA para Disenadoras Modernas</div>
+    </div>
+
+    <div class="toc">
+        <h2>Indice Rapido</h2>
+        <ul>
+            <li><a href="#cheat-sheet-ia">El "Cheat Sheet" de la IA (Modo Eficiente)</a></li>
+            <li><a href="#new-tools">Los "New Kids on the Block"</a></li>
+            <li><a href="#ready-for-dev">Checklist: "Ready for Dev"</a></li>
+            <li><a href="#hacks">Hacks de Productividad</a></li>
+            <li><a href="#shortcuts">Shortcuts Esenciales de IA</a></li>
+            <li><a href="#pre-entrega">Checklist Pre-Entrega a Dev</a></li>
+            <li><a href="#errores">Errores Comunes con IA</a></li>
+            <li><a href="#consejo-final">Consejo Final</a></li>
+        </ul>
+    </div>
+
+    <!-- CHEAT SHEET IA -->
+    <div class="section" id="cheat-sheet-ia">
+        <h2 class="section-title">1. El "Cheat Sheet" de la IA (Modo Eficiente)</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Prompting Pro: No pidas "una app", pide "un flujo"</h3>
+
+            <div class="card">
+                <div class="card-header">Formula de Prompt Efectivo</div>
+                <pre>[Tipo de producto] + [Estilo Visual] + [Elementos clave] + [Nivel de fidelidad]</pre>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Malo</div>
+                    <pre>"Disena una app de fitness"</pre>
+                </div>
+                <div class="card">
+                    <div class="card-header">Bueno</div>
+                    <pre>"Dashboard de app de fitness |
+Estilo minimalista |
+Cards de progreso + graficos + boton CTA |
+Wireframe de alta fidelidad"</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Ahorro de Creditos</h3>
+            <div class="card">
+                <p>Antes de generar desde cero con <strong>First Draft</strong>, intenta usar <strong>Search & Replace visual</strong> para reutilizar lo que ya tienes en tu libreria.</p>
+                <div class="alert alert-info">
+                    <strong>TIP:</strong> Es mas eficiente adaptar un componente existente que crear uno nuevo.
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Limpieza Express</h3>
+            <div class="card">
+                <p><kbd>Cmd + R</kbd> (o <kbd>Ctrl + R</kbd>) es tu mejor amigo.</p>
+                <p>Deja que la IA renombre tus capas contextualmente antes de compartir el archivo.</p>
+                <div class="grid-2">
+                    <div>
+                        <span class="badge badge-danger">Antes</span>
+                        <pre>"Frame 428"</pre>
+                    </div>
+                    <div>
+                        <span class="badge badge-success">Despues</span>
+                        <pre>"Hero Section - CTA Button"</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- NEW TOOLS -->
+    <div class="section" id="new-tools">
+        <h2 class="section-title">2. Los "New Kids on the Block" (Resumen de herramientas)</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Herramienta</th>
+                    <th>Cuando usarla?</th>
+                    <th>Tip Pro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Figma Sites</strong></td>
+                    <td>Landing pages y portfolios</td>
+                    <td>"Publica primero, ajusta despues. El feedback real vale mas que el diseno perfecto."</td>
+                </tr>
+                <tr>
+                    <td><strong>Figma Draw</strong></td>
+                    <td>Ilustraciones e iconos unicos</td>
+                    <td>"Usa el pincel de texturas para darle un toque artesanal a tus interfaces flat."</td>
+                </tr>
+                <tr>
+                    <td><strong>Figma Buzz</strong></td>
+                    <td>Colaboracion con Marketing</td>
+                    <td>"Bloquea los estilos de marca; deja que los demas editen solo el texto y las fotos."</td>
+                </tr>
+                <tr>
+                    <td><strong>Figma Slides</strong></td>
+                    <td>Presentaciones de diseno</td>
+                    <td>"Usa el modo interactivo para que tu cliente pruebe el prototipo dentro de la slide."</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- READY FOR DEV -->
+    <div class="section" id="ready-for-dev">
+        <h2 class="section-title">3. Checklist: "Ready for Dev" (Integracion Jira/Dev Mode)</h2>
+
+        <div class="card">
+            <p><strong>Antes de entregar, asegurate de cumplir estos 3 puntos para que los devs te amen:</strong></p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-header">1. Status Sync</div>
+                <p>Cambia el estado a <strong>"Ready for Dev"</strong> para disparar el webhook de Jira.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">2. Variables Check</div>
+                <p>Revisa que no haya colores <strong>"hardcoded"</strong> (manuales). Todo debe ser una variable.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">3. Anatomia de Capas</div>
+                <p>Usa el <strong>renombrado masivo IA</strong> para que el codigo exportado sea legible.</p>
+            </div>
+        </div>
+
+        <div class="alert alert-success">
+            <strong>PRO TIP:</strong> Un archivo bien preparado reduce en un 40% las idas y vueltas con desarrollo.
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- HACKS -->
+    <div class="section" id="hacks">
+        <h2 class="section-title">4. Hacks de Productividad para la Comunidad</h2>
+
+        <div class="card">
+            <div class="card-header">Busqueda por captura</div>
+            <p>Viste un componente en una web y quieres saber si lo tenemos?</p>
+            <p>Haz screenshot, pegalo en Figma y usa <strong>Visual Search</strong>.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">IA de Contenido</div>
+            <p>Selecciona 5 cajas de texto vacias, click derecho -> <strong>Generate Data</strong> -> <strong>Customer Names</strong>. Listo!</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Traduccion en un click</div>
+            <p>Prueba tus botones en aleman para ver si el texto se desborda antes de que el dev lo implemente.</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SHORTCUTS -->
+    <div class="section" id="shortcuts">
+        <h2 class="section-title">5. Shortcuts Esenciales de IA</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Atajo</th>
+                    <th>Funcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><kbd>Cmd/Ctrl + /</kbd></td>
+                    <td>Abrir busqueda de comandos</td>
+                </tr>
+                <tr>
+                    <td><kbd>Cmd/Ctrl + Shift + R</kbd></td>
+                    <td>Renombrado inteligente masivo</td>
+                </tr>
+                <tr>
+                    <td><kbd>Cmd/Ctrl + K</kbd></td>
+                    <td>Busqueda visual rapida</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PRE-ENTREGA -->
+    <div class="section" id="pre-entrega">
+        <h2 class="section-title">6. Checklist Pre-Entrega a Dev</h2>
+
+        <div class="card">
+            <ul class="checklist">
+                <li>Todas las capas renombradas (no "Frame 428")</li>
+                <li>Colores en Variables (no hardcoded)</li>
+                <li>Componentes agrupados logicamente</li>
+                <li>Dev Mode activado con anotaciones</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ERRORES -->
+    <div class="section" id="errores">
+        <h2 class="section-title">7. Errores Comunes con IA</h2>
+
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">Prompt vago = resultado generico</div>
+                <p>Si tu prompt no es especifico, la IA no podra darte lo que necesitas.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">No revisar/editar lo generado</div>
+                <p>Nunca aceptes el primer resultado sin revisarlo criticamente.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">Usar IA para todo (perdida de criterio)</div>
+                <p>La IA es una herramienta, no un sustituto de tu experiencia.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">IA para estructura, humano para identidad</div>
+                <p>Deja que la IA haga el trabajo pesado, pero tu defines la esencia.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CONSEJO FINAL -->
+    <div class="section" id="consejo-final">
+        <h2 class="section-title">8. Consejo Final</h2>
+
+        <div class="alert alert-success">
+            <h3>La IA te hace rapida, pero tu criterio te hace indispensable.</h3>
+            <p class="mt-1">No aceptes el primer borrador de la IA; curalo, cambialo y hazlo tuyo.</p>
+            <p class="mt-1"><strong>Tu valor como disenadora no esta en ejecutar pixeles, sino en las decisiones de diseno que tomas para resolver problemas reales de usuarios reales.</strong></p>
+        </div>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="section">
+        <h2 class="section-title">Key Takeaways</h2>
+
+        <div class="card">
+            <h3>1. Prompts especificos = resultados potentes</h3>
+            <p>Formula: [Tipo] + [Estilo] + [Elementos] + [Fidelidad]</p>
+        </div>
+
+        <div class="card">
+            <h3>2. Reutiliza antes de crear</h3>
+            <p>Search & Replace visual ahorra creditos y tiempo</p>
+        </div>
+
+        <div class="card">
+            <h3>3. Prepara tu archivo para Dev</h3>
+            <p>Status Sync + Variables + Capas limpias = devs felices</p>
+        </div>
+
+        <div class="card">
+            <h3>4. Tu criterio es tu valor</h3>
+            <p>La IA acelera, pero tu decides</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Creado con amor por <strong style="color: white;">Irina Ichim</strong></p>
+        <p>Curso de IA y Arquitectura de Software | Enero 2025</p>
+        <p class="mt-1">Disena con intencion, ejecuta con IA.</p>
+    </div>
+
+    <!-- Boton de volver arriba -->
+    <a href="#" class="scroll-to-top" id="scrollToTop" title="Volver arriba">
+        ^
+    </a>
+
+    <script src="main.js"></script>
+</body>
+</html>
