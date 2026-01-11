@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: FIGMA - Firebase Studio - Deploy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Asap+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Workshop: FIGMA - Firebase Studio - Deploy</h1>
+        <div class="subtitle">De Figma Make a una app funcional con Firestore en minutos</div>
+    </div>
+
+    <div class="toc">
+        <h2>Contenido del Workshop</h2>
+        <ul>
+            <li><a href="#objetivo">Objetivo del Workshop</a></li>
+            <li><a href="#proyecto1">Proyecto 1: Confesiones Anonimas</a></li>
+            <li><a href="#proyecto2">Proyecto 2: Micro-CV Generacional</a></li>
+            <li><a href="#proyecto3">Proyecto 3: Playlist Emocional</a></li>
+            <li><a href="#proyecto4">Proyecto 4: Banco de Errores Epicos</a></li>
+            <li><a href="#proyecto5">Proyecto 5: Metas de Codigo 2025</a></li>
+            <li><a href="#checklist">Checklist General</a></li>
+            <li><a href="#recuerda">Recuerda</a></li>
+        </ul>
+    </div>
+
+    <!-- OBJETIVO -->
+    <div class="section" id="objetivo">
+        <h2 class="section-title">Objetivo del Workshop</h2>
+        <div class="card">
+            <p>Aprender el flujo completo de desarrollo moderno:</p>
+            <div class="flow-diagram">
+                <span class="flow-step figma">Figma Make</span>
+                <span class="flow-arrow">-></span>
+                <span class="flow-step github">GitHub</span>
+                <span class="flow-arrow">-></span>
+                <span class="flow-step firebase">Firebase Studio</span>
+                <span class="flow-arrow">-></span>
+                <span class="flow-step firestore">Firestore</span>
+                <span class="flow-arrow">-></span>
+                <span class="flow-step deploy">Deploy</span>
+            </div>
+            <p class="mt-1"><strong>Elige UNO de los 5 proyectos y sigue los pasos.</strong></p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PROYECTO 1 -->
+    <div class="section" id="proyecto1">
+        <h2 class="section-title">Proyecto 1: "Confesiones Anonimas del Bootcamp"</h2>
+
+        <div class="card">
+            <div class="card-header">Concepto</div>
+            <p>Landing donde las alumnas pueden dejar mensajes anonimos sobre su experiencia en el bootcamp (miedos, logros, consejos).</p>
+        </div>
+
+        <!-- PASO 1 FIGMA -->
+        <div class="subsection">
+            <h3 class="subsection-title">1. FIGMA (5-7 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt para Figma Make:</div>
+                <pre>Crea una landing page minimalista para "Confesiones del Bootcamp".
+- Header con titulo "Confiesa tu Verdad" en tipografia bold
+- Formulario simple con:
+  * Campo de texto multilinea para la confesion (placeholder: "Escribe tu confesion anonima...")
+  * Boton "Enviar Confesion" en color morado (#8B5CF6)
+- Seccion de cards mostrando 3 confesiones de ejemplo
+- Paleta: fondo crema (#FFF8E7), texto oscuro (#1F2937)
+- Estilo: bordes redondeados, sombras suaves</pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>PERSONALIZA TU PROYECTO:</strong>
+                <ul>
+                    <li>Quieres cambiar colores? Modifica la paleta en el prompt</li>
+                    <li>Prefieres otro tema? Cambialo (ej: "Miedos del primer dia", "Logros de la semana")</li>
+                    <li>Quieres mas campos? Anadelos al formulario</li>
+                    <li>Sientete libre de experimentar con el prompt!</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Exportar codigo:</div>
+                <p>Descargar como HTML/CSS/JS -> Subir a GitHub repo (nombre: <code>confesiones-bootcamp</code>)</p>
+            </div>
+        </div>
+
+        <!-- PASO 2 FIREBASE STUDIO -->
+        <div class="subsection">
+            <h3 class="subsection-title">2. FIREBASE STUDIO (3-5 min)</h3>
+            <div class="card">
+                <div class="card-header">Import from GitHub</div>
+                <ol>
+                    <li>Click en "Import repository"</li>
+                    <li>Seleccionar <code>confesiones-bootcamp</code></li>
+                    <li>Autorizar acceso (codigo de 6 digitos)</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Prompt a Gemini en Firebase Studio:</div>
+                <pre>Necesito que este formulario guarde las confesiones en Firestore.
+Coleccion: "confesiones"
+Campos: { texto: string, timestamp: serverTimestamp }
+Muestra las ultimas 5 confesiones en las cards automaticamente.</pre>
+            </div>
+        </div>
+
+        <!-- PASO 3 FIREBASE CONSOLE -->
+        <div class="subsection">
+            <h3 class="subsection-title">3. FIREBASE CONSOLE (2-3 min)</h3>
+            <div class="card">
+                <ol>
+                    <li>Ir a Console -> Crear proyecto: <code>confesiones-bootcamp-project</code></li>
+                    <li>Ir a Configuracion del Proyecto -> Tus aplicaciones -> Web</li>
+                    <li>Copiar el <code>firebaseConfig</code></li>
+                    <li>Volver a Firebase Studio -> Chat con Gemini:</li>
+                </ol>
+                <pre>Aqui esta mi configuracion de Firebase:
+[PEGAR firebaseConfig]
+Configura la conexion a Firestore con esta config.</pre>
+                <ol start="5">
+                    <li>En Console -> Firestore Database -> Crear base de datos (modo test)</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- PASO 4 VERIFICAR -->
+        <div class="subsection">
+            <h3 class="subsection-title">4. VERIFICAR (1-2 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Verifica que el formulario este guardando correctamente en Firestore.
+Anade console.log para debug.</pre>
+                <p class="mt-1"><strong>Probar:</strong> Rellenar formulario en Preview -> Ir a Console Firestore -> Ver documento creado</p>
+            </div>
+        </div>
+
+        <!-- PASO 5 DEPLOY -->
+        <div class="subsection">
+            <h3 class="subsection-title">5. DEPLOY (1 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Despliega esta app en Firebase Hosting.</pre>
+                <p><strong>O manualmente:</strong> Click en "Publish" en Firebase Studio</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PROYECTO 2 -->
+    <div class="section" id="proyecto2">
+        <h2 class="section-title">Proyecto 2: "Micro-CV Generacional"</h2>
+
+        <div class="card">
+            <div class="card-header">Concepto</div>
+            <p>Generador de CVs ultra-cortos estilo Instagram bio. El usuario rellena 5 preguntas, se guarda en Firestore y puede ver CVs de otras personas.</p>
+        </div>
+
+        <!-- PASO 1 FIGMA -->
+        <div class="subsection">
+            <h3 class="subsection-title">1. FIGMA (5-7 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt para Figma Make:</div>
+                <pre>Landing "Mi Micro-CV" estilo tarjeta personal.
+- Header con titulo "Presentate en 5 lineas"
+- Formulario centrado con 5 campos:
+  * Nombre (input corto)
+  * Rol tech que aspiras (ej: "Frontend Developer") (input corto)
+  * Superpoder tech (ej: "React magica") (input corto)
+  * Tecnologia favorita (input corto)
+  * Emoji que te representa (selector de 5 emojis: laptop, rocket, palette, coffee, fire)
+  * Boton "Crear Mi Card"
+- Grid de 6 micro-CVs de ejemplo como tarjetas pequenas
+- Paleta: azul electrico (#3B82F6), blanco, gris claro
+- Estilo: cards con bordes gruesos, tipografia sans-serif</pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>PERSONALIZA TU PROYECTO:</strong>
+                <ul>
+                    <li>Quieres otras preguntas? Cambialas (ej: "Pelicula tech favorita", "Lenguaje que quieres aprender")</li>
+                    <li>Prefieres otro estilo visual? Modifica la paleta y tipografia</li>
+                    <li>Quieres anadir fotos de perfil? Anade un campo de imagen</li>
+                    <li>Experimenta con diferentes combinaciones!</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Exportar codigo:</div>
+                <p>Descargar como HTML/CSS/JS -> Subir a GitHub repo (nombre: <code>micro-cv</code>)</p>
+            </div>
+        </div>
+
+        <!-- PASO 2 FIREBASE STUDIO -->
+        <div class="subsection">
+            <h3 class="subsection-title">2. FIREBASE STUDIO (3-5 min)</h3>
+            <div class="card">
+                <div class="card-header">Import from GitHub</div>
+                <ol>
+                    <li>Click en "Import repository"</li>
+                    <li>Seleccionar <code>micro-cv</code></li>
+                    <li>Autorizar acceso (codigo de 6 digitos)</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Prompt a Gemini en Firebase Studio:</div>
+                <pre>El formulario debe guardar en Firestore:
+Coleccion: "micro_cvs"
+Campos: {
+  nombre: string,
+  rol: string,
+  superpoder: string,
+  tecnologia: string,
+  emoji: string,
+  fecha: serverTimestamp
+}
+Muestra los ultimos 12 micro-CVs en el grid automaticamente.</pre>
+            </div>
+        </div>
+
+        <!-- PASO 3 FIREBASE CONSOLE -->
+        <div class="subsection">
+            <h3 class="subsection-title">3. FIREBASE CONSOLE (2-3 min)</h3>
+            <div class="card">
+                <ol>
+                    <li>Ir a Console -> Crear proyecto: <code>micro-cv-project</code></li>
+                    <li>Ir a Configuracion del Proyecto -> Tus aplicaciones -> Web</li>
+                    <li>Copiar el <code>firebaseConfig</code></li>
+                    <li>Volver a Firebase Studio -> Chat con Gemini:</li>
+                </ol>
+                <pre>Aqui esta mi configuracion de Firebase:
+[PEGAR firebaseConfig]
+Configura la conexion a Firestore con esta config.</pre>
+                <ol start="5">
+                    <li>En Console -> Firestore Database -> Crear base de datos (modo test)</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- PASO 4 VERIFICAR -->
+        <div class="subsection">
+            <h3 class="subsection-title">4. VERIFICAR (1-2 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Verifica que el formulario este guardando correctamente en Firestore.
+Anade console.log para debug.</pre>
+                <p class="mt-1"><strong>Probar:</strong> Rellenar formulario en Preview -> Ir a Console Firestore -> Ver documento creado</p>
+            </div>
+        </div>
+
+        <!-- PASO 5 DEPLOY -->
+        <div class="subsection">
+            <h3 class="subsection-title">5. DEPLOY (1 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Despliega esta app en Firebase Hosting.</pre>
+                <p><strong>O manualmente:</strong> Click en "Publish" en Firebase Studio</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PROYECTO 3 -->
+    <div class="section" id="proyecto3">
+        <h2 class="section-title">Proyecto 3: "Playlist Emocional Colaborativa"</h2>
+
+        <div class="card">
+            <div class="card-header">Concepto</div>
+            <p>Landing donde la gente recomienda canciones segun su estado de animo.</p>
+        </div>
+
+        <!-- PASO 1 FIGMA -->
+        <div class="subsection">
+            <h3 class="subsection-title">1. FIGMA (5-7 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt para Figma Make:</div>
+                <pre>Landing "Soundtrack del Dia" para recomendar canciones.
+- Header con gradiente de rosa a naranja
+- Formulario centrado:
+  * Dropdown "Mi mood hoy": [Motivada, Cansada, Euforica, Nostalgica, En Zona]
+  * Input "Cancion + Artista" (placeholder: "Levitating - Dua Lipa")
+  * Boton "Anadir a la Playlist"
+- Cards horizontales mostrando 4 recomendaciones por mood
+- Paleta: gradientes vibrantes, texto blanco
+- Estilo: neumorfico, bordes redondeados extremos</pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>PERSONALIZA TU PROYECTO:</strong>
+                <ul>
+                    <li>Quieres otros moods? Anade mas opciones (ej: "Concentrada", "Feliz", "Melancolica")</li>
+                    <li>Prefieres recomendar peliculas o libros? Cambia el concepto</li>
+                    <li>Quieres anadir genero musical? Anade un campo extra</li>
+                    <li>Dale tu toque personal!</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Exportar codigo:</div>
+                <p>Descargar como HTML/CSS/JS -> Subir a GitHub repo (nombre: <code>playlist-emocional</code>)</p>
+            </div>
+        </div>
+
+        <!-- PASO 2 FIREBASE STUDIO -->
+        <div class="subsection">
+            <h3 class="subsection-title">2. FIREBASE STUDIO (3-5 min)</h3>
+            <div class="card">
+                <div class="card-header">Import from GitHub</div>
+                <ol>
+                    <li>Click en "Import repository"</li>
+                    <li>Seleccionar <code>playlist-emocional</code></li>
+                    <li>Autorizar acceso (codigo de 6 digitos)</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Prompt a Gemini en Firebase Studio:</div>
+                <pre>Guarda en Firestore:
+Coleccion: "playlist"
+Campos: { mood: string, cancion: string, timestamp: serverTimestamp }
+Filtra las cards por mood seleccionado en un dropdown.</pre>
+            </div>
+        </div>
+
+        <!-- PASO 3 FIREBASE CONSOLE -->
+        <div class="subsection">
+            <h3 class="subsection-title">3. FIREBASE CONSOLE (2-3 min)</h3>
+            <div class="card">
+                <ol>
+                    <li>Ir a Console -> Crear proyecto: <code>playlist-emocional-project</code></li>
+                    <li>Ir a Configuracion del Proyecto -> Tus aplicaciones -> Web</li>
+                    <li>Copiar el <code>firebaseConfig</code></li>
+                    <li>Volver a Firebase Studio -> Chat con Gemini:</li>
+                </ol>
+                <pre>Aqui esta mi configuracion de Firebase:
+[PEGAR firebaseConfig]
+Configura la conexion a Firestore con esta config.</pre>
+                <ol start="5">
+                    <li>En Console -> Firestore Database -> Crear base de datos (modo test)</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- PASO 4 VERIFICAR -->
+        <div class="subsection">
+            <h3 class="subsection-title">4. VERIFICAR (1-2 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Verifica que el formulario este guardando correctamente en Firestore.
+Anade console.log para debug.</pre>
+                <p class="mt-1"><strong>Probar:</strong> Rellenar formulario en Preview -> Ir a Console Firestore -> Ver documento creado</p>
+            </div>
+        </div>
+
+        <!-- PASO 5 DEPLOY -->
+        <div class="subsection">
+            <h3 class="subsection-title">5. DEPLOY (1 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Despliega esta app en Firebase Hosting.</pre>
+                <p><strong>O manualmente:</strong> Click en "Publish" en Firebase Studio</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PROYECTO 4 -->
+    <div class="section" id="proyecto4">
+        <h2 class="section-title">Proyecto 4: "Banco de Errores Epicos"</h2>
+
+        <div class="card">
+            <div class="card-header">Concepto</div>
+            <p>Repositorio de errores de codigo divertidos que las alumnas han encontrado, para aprender juntas.</p>
+        </div>
+
+        <!-- PASO 1 FIGMA -->
+        <div class="subsection">
+            <h3 class="subsection-title">1. FIGMA (5-7 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt para Figma Make:</div>
+                <pre>Landing "Mis Bugs Legendarios" estilo GitHub issues pero divertido.
+- Header con icono de bug y titulo "Errores que me hicieron llorar"
+- Formulario:
+  * Input "Mensaje de error" (corto)
+  * Textarea "Que intentabas hacer" (3 lineas)
+  * Boton "Compartir mi Drama"
+- Lista de 5 errores como cards verticales con borde rojo
+- Paleta: rojo suave (#EF4444), gris oscuro (#374151), blanco
+- Estilo: monoespaciado para el codigo de error</pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>PERSONALIZA TU PROYECTO:</strong>
+                <ul>
+                    <li>Quieres anadir soluciones? Anade un campo "Como lo solucionaste"</li>
+                    <li>Prefieres un tono mas serio? Cambia el copy a "Repositorio de Debugging"</li>
+                    <li>Quieres categorias de errores? Anade un dropdown (Frontend, Backend, Database, etc.)</li>
+                    <li>Hazlo tuyo!</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Exportar codigo:</div>
+                <p>Descargar como HTML/CSS/JS -> Subir a GitHub repo (nombre: <code>bugs-epicos</code>)</p>
+            </div>
+        </div>
+
+        <!-- PASO 2 FIREBASE STUDIO -->
+        <div class="subsection">
+            <h3 class="subsection-title">2. FIREBASE STUDIO (3-5 min)</h3>
+            <div class="card">
+                <div class="card-header">Import from GitHub</div>
+                <ol>
+                    <li>Click en "Import repository"</li>
+                    <li>Seleccionar <code>bugs-epicos</code></li>
+                    <li>Autorizar acceso (codigo de 6 digitos)</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Prompt a Gemini en Firebase Studio:</div>
+                <pre>Firestore:
+Coleccion: "bugs_epicos"
+Campos: { error: string, contexto: string, fecha: serverTimestamp }
+Muestra los ultimos 10 bugs ordenados por fecha.</pre>
+            </div>
+        </div>
+
+        <!-- PASO 3 FIREBASE CONSOLE -->
+        <div class="subsection">
+            <h3 class="subsection-title">3. FIREBASE CONSOLE (2-3 min)</h3>
+            <div class="card">
+                <ol>
+                    <li>Ir a Console -> Crear proyecto: <code>bugs-epicos-project</code></li>
+                    <li>Ir a Configuracion del Proyecto -> Tus aplicaciones -> Web</li>
+                    <li>Copiar el <code>firebaseConfig</code></li>
+                    <li>Volver a Firebase Studio -> Chat con Gemini:</li>
+                </ol>
+                <pre>Aqui esta mi configuracion de Firebase:
+[PEGAR firebaseConfig]
+Configura la conexion a Firestore con esta config.</pre>
+                <ol start="5">
+                    <li>En Console -> Firestore Database -> Crear base de datos (modo test)</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- PASO 4 VERIFICAR -->
+        <div class="subsection">
+            <h3 class="subsection-title">4. VERIFICAR (1-2 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Verifica que el formulario este guardando correctamente en Firestore.
+Anade console.log para debug.</pre>
+                <p class="mt-1"><strong>Probar:</strong> Rellenar formulario en Preview -> Ir a Console Firestore -> Ver documento creado</p>
+            </div>
+        </div>
+
+        <!-- PASO 5 DEPLOY -->
+        <div class="subsection">
+            <h3 class="subsection-title">5. DEPLOY (1 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Despliega esta app en Firebase Hosting.</pre>
+                <p><strong>O manualmente:</strong> Click en "Publish" en Firebase Studio</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- PROYECTO 5 -->
+    <div class="section" id="proyecto5">
+        <h2 class="section-title">Proyecto 5: "Metas de Codigo 2025"</h2>
+
+        <div class="card">
+            <div class="card-header">Concepto</div>
+            <p>Tablero publico de objetivos tech de las alumnas para motivarse mutuamente.</p>
+        </div>
+
+        <!-- PASO 1 FIGMA -->
+        <div class="subsection">
+            <h3 class="subsection-title">1. FIGMA (5-7 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt para Figma Make:</div>
+                <pre>Landing "Mis Metas Tech 2025" estilo vision board.
+- Header con titulo inspirador "Este ano aprendo..."
+- Formulario simple:
+  * Input "Tu nombre"
+  * Input "Meta tech" (ej: "Dominar TypeScript")
+  * Selector de categoria: [Frontend, Backend, DevOps, IA, Movil]
+  * Boton "Publicar Meta"
+- Grid de 9 cards con metas de ejemplo, color segun categoria
+- Paleta: verde menta (#10B981), amarillo suave, blanco
+- Estilo: cards con sombra, iconos de categoria</pre>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>PERSONALIZA TU PROYECTO:</strong>
+                <ul>
+                    <li>Quieres anadir deadline? Anade un campo de fecha</li>
+                    <li>Prefieres metas trimestrales? Cambia el titulo a "Q1 2025"</li>
+                    <li>Quieres votacion de metas? Anade un boton de "Me inspira"</li>
+                    <li>Se creativa!</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Exportar codigo:</div>
+                <p>Descargar como HTML/CSS/JS -> Subir a GitHub repo (nombre: <code>metas-tech-2025</code>)</p>
+            </div>
+        </div>
+
+        <!-- PASO 2 FIREBASE STUDIO -->
+        <div class="subsection">
+            <h3 class="subsection-title">2. FIREBASE STUDIO (3-5 min)</h3>
+            <div class="card">
+                <div class="card-header">Import from GitHub</div>
+                <ol>
+                    <li>Click en "Import repository"</li>
+                    <li>Seleccionar <code>metas-tech-2025</code></li>
+                    <li>Autorizar acceso (codigo de 6 digitos)</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Prompt a Gemini en Firebase Studio:</div>
+                <pre>Firestore:
+Coleccion: "metas_2025"
+Campos: { nombre: string, meta: string, categoria: string, fecha: serverTimestamp }
+Agrupa las cards por categoria visualmente.</pre>
+            </div>
+        </div>
+
+        <!-- PASO 3 FIREBASE CONSOLE -->
+        <div class="subsection">
+            <h3 class="subsection-title">3. FIREBASE CONSOLE (2-3 min)</h3>
+            <div class="card">
+                <ol>
+                    <li>Ir a Console -> Crear proyecto: <code>metas-tech-2025-project</code></li>
+                    <li>Ir a Configuracion del Proyecto -> Tus aplicaciones -> Web</li>
+                    <li>Copiar el <code>firebaseConfig</code></li>
+                    <li>Volver a Firebase Studio -> Chat con Gemini:</li>
+                </ol>
+                <pre>Aqui esta mi configuracion de Firebase:
+[PEGAR firebaseConfig]
+Configura la conexion a Firestore con esta config.</pre>
+                <ol start="5">
+                    <li>En Console -> Firestore Database -> Crear base de datos (modo test)</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- PASO 4 VERIFICAR -->
+        <div class="subsection">
+            <h3 class="subsection-title">4. VERIFICAR (1-2 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Verifica que el formulario este guardando correctamente en Firestore.
+Anade console.log para debug.</pre>
+                <p class="mt-1"><strong>Probar:</strong> Rellenar formulario en Preview -> Ir a Console Firestore -> Ver documento creado</p>
+            </div>
+        </div>
+
+        <!-- PASO 5 DEPLOY -->
+        <div class="subsection">
+            <h3 class="subsection-title">5. DEPLOY (1 min)</h3>
+            <div class="card">
+                <div class="card-header">Prompt a Gemini:</div>
+                <pre>Despliega esta app en Firebase Hosting.</pre>
+                <p><strong>O manualmente:</strong> Click en "Publish" en Firebase Studio</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CHECKLIST -->
+    <div class="section" id="checklist">
+        <h2 class="section-title">Checklist General del Workshop</h2>
+
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">FIGMA</div>
+                <ul class="checklist">
+                    <li>Abrir Figma Make</li>
+                    <li>Pegar prompt del proyecto (personalizalo si quieres)</li>
+                    <li>Descargar codigo</li>
+                    <li>Subir a GitHub (repo publico)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">FIREBASE STUDIO</div>
+                <ul class="checklist">
+                    <li>Import repository</li>
+                    <li>Autorizar GitHub (codigo de 6 digitos)</li>
+                    <li>Prompt a Gemini para configurar Firestore</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">FIREBASE CONSOLE</div>
+                <ul class="checklist">
+                    <li>Crear proyecto Firebase</li>
+                    <li>Ir a Configuracion -> Web app</li>
+                    <li>Copiar firebaseConfig</li>
+                    <li>Crear Firestore Database (modo test)</li>
+                    <li>Pegar config en Gemini (Firebase Studio)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">VERIFICAR Y DEPLOY</div>
+                <ul class="checklist">
+                    <li>Rellenar formulario en Preview</li>
+                    <li>Ver dato en Firestore Console</li>
+                    <li>Click "Publish" o prompt a Gemini</li>
+                    <li>Copiar URL publica</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECUERDA -->
+    <div class="section" id="recuerda">
+        <h2 class="section-title">Recuerda</h2>
+
+        <div class="alert alert-success">
+            <h3>Este workshop es para EXPERIMENTAR!</h3>
+            <ul>
+                <li>Cambia colores, texto, campos del formulario</li>
+                <li>Prueba diferentes prompts en Figma</li>
+                <li>Pidele a Gemini mejoras de diseno o funcionalidad</li>
+                <li>Si tienes otra idea de proyecto, adelante!</li>
+                <li><strong>No hay respuestas incorrectas, solo iteraciones</strong></li>
+            </ul>
+        </div>
+
+        <div class="card text-center">
+            <p style="font-size: 1.2rem;"><strong>El objetivo es que entiendas el flujo completo:</strong></p>
+            <div class="flow-diagram" style="margin-top: 1rem;">
+                <span class="flow-step figma">Figma</span>
+                <span class="flow-arrow">-></span>
+                <span class="flow-step github">GitHub</span>
+                <span class="flow-arrow">-></span>
+                <span class="flow-step firebase">Firebase Studio</span>
+                <span class="flow-arrow">-></span>
+                <span class="flow-step firestore">Firestore</span>
+                <span class="flow-arrow">-></span>
+                <span class="flow-step deploy">Deploy</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Creado con amor por <strong style="color: white;">Irina Ichim</strong></p>
+        <p>Workshop de Firebase Studio y Desarrollo Moderno</p>
+        <p class="mt-1">Mucha suerte y a disfrutar del workshop!</p>
+    </div>
+
+    <!-- Boton de volver arriba -->
+    <a href="#" class="scroll-to-top" id="scrollToTop" title="Volver arriba">
+        ^
+    </a>
+
+    <script src="main.js"></script>
+</body>
+</html>
