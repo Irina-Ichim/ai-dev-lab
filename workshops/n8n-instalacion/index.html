@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia: Instalacion de n8n en tu ordenador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Asap+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Guia: Instalacion de n8n</h1>
+        <div class="subtitle">Automatiza flujos de trabajo sin escribir codigo</div>
+    </div>
+
+    <!-- Que metodo elegir -->
+    <div class="section" id="cual-elegir">
+        <h2 class="section-title">Cual metodo elegir?</h2>
+        <div class="grid-3">
+            <div class="card method-card">
+                <div class="card-header">Principiantes</div>
+                <p>Si nunca has usado la terminal o no sabes que es npm, sigue la <strong>Opcion 1</strong>.</p>
+                <p class="mt-1"><a href="#opcion1">Ir a Opcion 1</a></p>
+            </div>
+            <div class="card method-card">
+                <div class="card-header">Desarrolladores</div>
+                <p>Si ya tienes Node.js instalado y sabes usar npm, ve directo a la <strong>Opcion 2</strong>.</p>
+                <p class="mt-1"><a href="#opcion2">Ir a Opcion 2</a></p>
+            </div>
+            <div class="card method-card">
+                <div class="card-header">DevOps / Avanzados</div>
+                <p>Si prefieres contenedores y tienes Docker instalado, usa la <strong>Opcion 3</strong>.</p>
+                <p class="mt-1"><a href="#opcion3">Ir a Opcion 3</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="toc">
+        <h2>Contenido</h2>
+        <ul>
+            <li><a href="#que-es-n8n">Que es n8n?</a></li>
+            <li><a href="#opcion1">Opcion 1: Instalacion para Principiantes</a></li>
+            <li><a href="#opcion2">Opcion 2: Instalacion con npm</a></li>
+            <li><a href="#opcion3">Opcion 3: Instalacion con Docker</a></li>
+            <li><a href="#ejecutar">Como ejecutar n8n</a></li>
+            <li><a href="#problemas">Problemas comunes</a></li>
+        </ul>
+    </div>
+
+    <!-- QUE ES N8N -->
+    <div class="section" id="que-es-n8n">
+        <h2 class="section-title">Que es n8n?</h2>
+        <div class="card">
+            <p><strong>n8n</strong> (pronunciado "n-eight-n") es una herramienta de automatizacion de flujos de trabajo. Te permite conectar diferentes aplicaciones y servicios para que trabajen juntos automaticamente.</p>
+            <div class="alert alert-info mt-1">
+                <strong>Ejemplo:</strong> Puedes crear un flujo que cuando recibas un email con un archivo adjunto, automaticamente lo suba a Google Drive y te envie una notificacion a Slack.
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- OPCION 1: PRINCIPIANTES -->
+    <div class="section" id="opcion1">
+        <h2 class="section-title">Opcion 1: Instalacion para Principiantes</h2>
+
+        <div class="alert alert-success">
+            <strong>Para quien es esto?</strong> Para personas que nunca han usado la terminal, no saben que es npm, o simplemente quieren seguir pasos sencillos sin complicarse.
+        </div>
+
+        <!-- Paso 1.1: Instalar Node.js -->
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 1: Instalar Node.js</h3>
+            <div class="card">
+                <div class="card-header">Que es Node.js?</div>
+                <p>Node.js es un programa que permite ejecutar n8n. Solo tienes que instalarlo una vez.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">1.1 Descargar Node.js</div>
+                <ol>
+                    <li>Ve a <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer"><strong>https://nodejs.org/</strong></a></li>
+                    <li>Haz clic en el boton verde que dice <strong>"LTS"</strong> (es la version recomendada)</li>
+                    <li>Se descargara un archivo <code>.msi</code></li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-header">1.2 Instalar Node.js</div>
+                <ol>
+                    <li>Abre el archivo descargado</li>
+                    <li>Haz clic en <strong>"Next"</strong> (Siguiente)</li>
+                    <li>Acepta los terminos -> <strong>"Next"</strong></li>
+                    <li>Deja la ruta por defecto -> <strong>"Next"</strong></li>
+                    <li>Deja las opciones por defecto -> <strong>"Next"</strong></li>
+                    <li><strong>IMPORTANTE:</strong> Marca la casilla que dice "Automatically install the necessary tools..." si aparece</li>
+                    <li>Haz clic en <strong>"Install"</strong></li>
+                    <li>Espera a que termine y haz clic en <strong>"Finish"</strong></li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-header">1.3 Verificar que se instalo bien</div>
+                <ol>
+                    <li>Abre el <strong>menu de inicio</strong> de Windows</li>
+                    <li>Escribe <strong>"cmd"</strong> y abre "Simbolo del sistema"</li>
+                    <li>Escribe esto y presiona Enter:</li>
+                </ol>
+                <pre>node --version</pre>
+                <p class="mt-1">Deberia aparecer algo como: <code>v20.x.x</code> o <code>v22.x.x</code></p>
+
+                <div class="alert alert-warning mt-1">
+                    <strong>Si aparece un error:</strong> Cierra la terminal, reinicia el ordenador e intentalo de nuevo.
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 1.2: Instalar n8n -->
+        <div class="subsection">
+            <h3 class="subsection-title">Paso 2: Instalar n8n</h3>
+            <div class="card">
+                <div class="card-header">2.1 Abrir la terminal</div>
+                <ol>
+                    <li>Abre el <strong>menu de inicio</strong></li>
+                    <li>Escribe <strong>"PowerShell"</strong></li>
+                    <li>Haz clic derecho en "Windows PowerShell" y selecciona <strong>"Ejecutar como administrador"</strong></li>
+                    <li>Si te pregunta si quieres permitir cambios, haz clic en <strong>"Si"</strong></li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <div class="card-header">2.2 Instalar n8n globalmente</div>
+                <p>Copia y pega este comando en la terminal y presiona Enter:</p>
+                <pre>npm install -g n8n</pre>
+                <p class="mt-1">Espera a que termine (puede tardar 1-3 minutos).</p>
+
+                <div class="alert alert-info mt-1">
+                    <strong>Que significa esto?</strong>
+                    <ul>
+                        <li><code>npm</code> = El gestor de paquetes de Node.js</li>
+                        <li><code>install</code> = Instalar algo</li>
+                        <li><code>-g</code> = Globalmente (disponible en todo el sistema)</li>
+                        <li><code>n8n</code> = El nombre del programa a instalar</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">2.3 Verificar la instalacion</div>
+                <p>Escribe este comando y presiona Enter:</p>
+                <pre>n8n --version</pre>
+                <p class="mt-1">Deberia aparecer algo como: <code>1.x.x</code></p>
+            </div>
+        </div>
+
+        <div class="alert alert-success">
+            <strong>Felicidades!</strong> Ya tienes n8n instalado. Ve a la seccion <a href="#ejecutar">"Como ejecutar n8n"</a> para aprender a usarlo.
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- OPCION 2: NPM -->
+    <div class="section" id="opcion2">
+        <h2 class="section-title">Opcion 2: Instalacion con npm</h2>
+
+        <div class="alert alert-info">
+            <strong>Requisito:</strong> Node.js version 20.19 a 24.x. Si no lo tienes, sigue el Paso 1 de la Opcion 1.
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Verificar requisitos</h3>
+            <div class="card">
+                <div class="card-header">Comprobar versiones</div>
+                <pre>node --version
+npm --version</pre>
+                <p class="mt-1">Necesitas: Node.js v20.19+ (hasta v24.x)</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Opciones de instalacion</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Probar sin instalar (npx)</div>
+                    <p>Ideal para probar n8n rapidamente:</p>
+                    <pre>npx n8n</pre>
+                    <p class="mt-1"><strong>Nota:</strong> Los datos se pierden al cerrar la terminal.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">Instalacion global (recomendada)</div>
+                    <pre>npm install n8n -g</pre>
+                    <p class="mt-1">Luego ejecuta:</p>
+                    <pre>n8n start</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Instalar version especifica</div>
+                <pre>npm install -g n8n@2.3.4</pre>
+                <p class="mt-1">Version beta (inestable):</p>
+                <pre>npm install -g n8n@next</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Configurar zona horaria (Espana)</h3>
+            <div class="card">
+                <p>Para que los nodos programados funcionen correctamente:</p>
+                <div class="card-header mt-1">PowerShell (temporal)</div>
+                <pre>$env:GENERIC_TIMEZONE="Europe/Madrid"
+$env:TZ="Europe/Madrid"
+n8n start</pre>
+                <div class="card-header mt-1">CMD (temporal)</div>
+                <pre>set GENERIC_TIMEZONE=Europe/Madrid
+set TZ=Europe/Madrid
+n8n start</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Hacer permanente (PowerShell como Administrador)</div>
+                <pre>[System.Environment]::SetEnvironmentVariable("GENERIC_TIMEZONE", "Europe/Madrid", "User")
+[System.Environment]::SetEnvironmentVariable("TZ", "Europe/Madrid", "User")</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Crear script de inicio (Windows)</h3>
+            <div class="card">
+                <div class="card-header">Archivo iniciar-n8n.bat</div>
+                <p>Crea un archivo <code>iniciar-n8n.bat</code> en tu escritorio:</p>
+                <pre>@echo off
+set GENERIC_TIMEZONE=Europe/Madrid
+set TZ=Europe/Madrid
+n8n start
+pause</pre>
+                <p class="mt-1">Doble clic para iniciar n8n con la zona horaria correcta.</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Ubicacion de datos</h3>
+            <div class="card">
+                <p>Por defecto, n8n guarda los datos en:</p>
+                <pre>C:\Users\TU_USUARIO\.n8n\</pre>
+                <p class="mt-1">Esta carpeta contiene:</p>
+                <ul>
+                    <li><code>database.sqlite</code> - Base de datos con workflows y credenciales</li>
+                    <li><code>config</code> - Configuracion</li>
+                    <li>Claves de encriptacion</li>
+                </ul>
+                <div class="alert alert-success mt-1">
+                    <strong>Los datos persisten aunque:</strong>
+                    <ul>
+                        <li>Cierres la terminal</li>
+                        <li>Reinicies el ordenador</li>
+                        <li>Actualices n8n</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Comandos utiles</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Iniciar n8n</div>
+                    <pre>n8n start</pre>
+                </div>
+                <div class="card">
+                    <div class="card-header">Iniciar con tunnel (webhooks)</div>
+                    <pre>n8n start --tunnel</pre>
+                    <p class="mt-1"><small>Solo para desarrollo local</small></p>
+                </div>
+                <div class="card">
+                    <div class="card-header">Actualizar a ultima version</div>
+                    <pre>npm update -g n8n</pre>
+                </div>
+                <div class="card">
+                    <div class="card-header">Ver version instalada</div>
+                    <pre>n8n --version</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Revertir a version anterior</div>
+                <pre># Instalar version especifica anterior
+npm install -g n8n@2.2.0
+
+# Si hubo migracion de base de datos, revertirla
+n8n db:revert</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Migracion y backup</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Copia de seguridad</div>
+                    <p>Copia la carpeta completa:</p>
+                    <pre>C:\Users\TU_USUARIO\.n8n\</pre>
+                    <p class="mt-1">Guardala en un lugar seguro.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">Migrar a otro ordenador</div>
+                    <ol>
+                        <li>Copia la carpeta <code>.n8n</code> al nuevo PC</li>
+                        <li>Instala Node.js y n8n</li>
+                        <li>Ejecuta <code>n8n start</code></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-success">
+            <strong>Listo!</strong> n8n estara disponible en: <a href="http://localhost:5678" target="_blank" rel="noopener noreferrer">http://localhost:5678</a>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- OPCION 3: DOCKER -->
+    <div class="section" id="opcion3">
+        <h2 class="section-title">Opcion 3: Instalacion con Docker</h2>
+
+        <div class="alert alert-info">
+            <strong>Requisito:</strong> Debes tener Docker Desktop instalado y funcionando. Descargalo desde <a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noopener noreferrer">docker.com</a>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Verificar Docker</h3>
+            <div class="card">
+                <div class="card-header">Comprobar instalacion</div>
+                <pre>docker --version</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Estructura de archivos recomendada</h3>
+            <div class="card">
+                <div class="card-header">Crear carpeta para n8n</div>
+                <p>Crea una carpeta donde guardaras toda la configuracion:</p>
+                <pre>C:\Users\TU_USUARIO\n8n-docker\
+├── docker-compose.yml    # Configuracion de Docker
+└── n8n-data\             # Datos persistentes (se crea automaticamente)</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Configuracion con Docker Compose (recomendado)</h3>
+
+            <div class="card">
+                <div class="card-header">Archivo docker-compose.yml</div>
+                <p>Crea el archivo <code>docker-compose.yml</code> con esta configuracion:</p>
+                <pre>version: '3.8'
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=Europe/Madrid
+      - TZ=Europe/Madrid
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_ENCRYPTION_KEY=tu-clave-secreta-aqui
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  n8n-data:</pre>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Explicacion de la configuracion</div>
+                <ul>
+                    <li><code>image: docker.n8n.io/n8nio/n8n:latest</code> - Imagen oficial de n8n</li>
+                    <li><code>restart: unless-stopped</code> - Se reinicia automaticamente excepto si lo paras manualmente</li>
+                    <li><code>GENERIC_TIMEZONE</code> - Zona horaria para nodos programados (Schedule Trigger, etc.)</li>
+                    <li><code>N8N_RUNNERS_ENABLED</code> - Habilita task runners (recomendado)</li>
+                    <li><code>N8N_ENCRYPTION_KEY</code> - Clave para cifrar credenciales (<strong>MUY IMPORTANTE guardarla</strong>)</li>
+                    <li><code>volumes: ./n8n-data</code> - Carpeta local donde se guardan todos los datos</li>
+                    <li><code>healthcheck</code> - Verifica que n8n este funcionando correctamente</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-danger">
+                <strong>IMPORTANTE:</strong> La clave <code>N8N_ENCRYPTION_KEY</code> es necesaria para descifrar tus credenciales. Si la pierdes, perderas acceso a las credenciales guardadas. Guardala en un lugar seguro!
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Comandos utiles</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Iniciar n8n</div>
+                    <pre>cd C:\Users\TU_USUARIO\n8n-docker
+docker compose up -d</pre>
+                </div>
+                <div class="card">
+                    <div class="card-header">Parar n8n</div>
+                    <pre>cd C:\Users\TU_USUARIO\n8n-docker
+docker compose down</pre>
+                </div>
+                <div class="card">
+                    <div class="card-header">Ver logs en tiempo real</div>
+                    <pre>cd C:\Users\TU_USUARIO\n8n-docker
+docker compose logs -f</pre>
+                </div>
+                <div class="card">
+                    <div class="card-header">Ver estado del contenedor</div>
+                    <pre>docker ps --filter "name=n8n"</pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Actualizar a la ultima version</div>
+                <pre>cd C:\Users\TU_USUARIO\n8n-docker
+docker compose pull
+docker compose down
+docker compose up -d</pre>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Persistencia de datos</h3>
+            <div class="card">
+                <p>Todos los datos se guardan en la carpeta <code>n8n-data</code>:</p>
+                <ul>
+                    <li>Workflows</li>
+                    <li>Credenciales (cifradas)</li>
+                    <li>Historial de ejecuciones</li>
+                    <li>Configuracion de usuario</li>
+                </ul>
+                <div class="alert alert-success mt-1">
+                    <strong>Los datos persisten aunque:</strong>
+                    <ul>
+                        <li>Apagues Docker Desktop</li>
+                        <li>Reinicies el ordenador</li>
+                        <li>Elimines el contenedor</li>
+                        <li>Actualices n8n</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Migracion y backup</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Copia de seguridad</div>
+                    <p>Simplemente copia la carpeta completa <code>n8n-docker</code> que incluye:</p>
+                    <ul>
+                        <li><code>docker-compose.yml</code> (con la clave de encriptacion)</li>
+                        <li><code>n8n-data/</code> (todos tus datos)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">Migrar a otro ordenador</div>
+                    <ol>
+                        <li>Copia la carpeta <code>n8n-docker</code> al nuevo PC</li>
+                        <li>Instala Docker Desktop</li>
+                        <li>Ejecuta <code>docker compose up -d</code></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-success">
+            <strong>Perfecto!</strong> n8n estara disponible en: <a href="http://localhost:5678" target="_blank" rel="noopener noreferrer">http://localhost:5678</a>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- COMO EJECUTAR -->
+    <div class="section" id="ejecutar">
+        <h2 class="section-title">Como ejecutar n8n</h2>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Iniciar n8n</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Si instalaste con npm</div>
+                    <pre>n8n</pre>
+                    <p class="mt-1">O con npx:</p>
+                    <pre>npx n8n</pre>
+                </div>
+                <div class="card">
+                    <div class="card-header">Si instalaste con Docker</div>
+                    <pre>docker start n8n</pre>
+                    <p class="mt-1">O con Docker Compose:</p>
+                    <pre>docker-compose up -d</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Acceder a n8n</h3>
+            <div class="card">
+                <div class="card-header">Abrir en el navegador</div>
+                <ol>
+                    <li>Abre tu navegador (Chrome, Firefox, Edge...)</li>
+                    <li>Ve a: <a href="http://localhost:5678" target="_blank" rel="noopener noreferrer"><strong>http://localhost:5678</strong></a></li>
+                    <li>La primera vez te pedira crear una cuenta (es local, solo en tu ordenador)</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Detener n8n</h3>
+            <div class="card">
+                <div class="card-header">Para parar n8n</div>
+                <ul>
+                    <li><strong>Si usas npm:</strong> Presiona <code>Ctrl + C</code> en la terminal</li>
+                    <li><strong>Si usas Docker:</strong> <code>docker stop n8n</code></li>
+                    <li><strong>Si usas Docker Compose:</strong> <code>docker-compose down</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROBLEMAS COMUNES -->
+    <div class="section" id="problemas">
+        <h2 class="section-title">Problemas comunes</h2>
+
+        <div class="card">
+            <div class="card-header">"npm no se reconoce como comando"</div>
+            <p><strong>Solucion:</strong> Node.js no esta instalado correctamente o no se anadio al PATH.</p>
+            <ol>
+                <li>Reinicia el ordenador</li>
+                <li>Si persiste, reinstala Node.js marcando la opcion "Add to PATH"</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <div class="card-header">"Error de permisos" al instalar con npm</div>
+            <p><strong>Solucion:</strong> Ejecuta la terminal como administrador:</p>
+            <ol>
+                <li>Cierra la terminal actual</li>
+                <li>Busca "PowerShell" o "cmd"</li>
+                <li>Haz clic derecho -> "Ejecutar como administrador"</li>
+                <li>Intenta el comando de nuevo</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <div class="card-header">"El puerto 5678 esta en uso"</div>
+            <p><strong>Solucion:</strong> Usa otro puerto:</p>
+            <pre>n8n --port 5679</pre>
+            <p class="mt-1">O con Docker:</p>
+            <pre>docker run -it --rm --name n8n -p 5679:5678 n8nio/n8n</pre>
+        </div>
+
+        <div class="card">
+            <div class="card-header">"Docker daemon is not running"</div>
+            <p><strong>Solucion:</strong> Inicia Docker Desktop:</p>
+            <ol>
+                <li>Busca "Docker Desktop" en el menu de inicio</li>
+                <li>Abrelo y espera a que inicie (icono verde)</li>
+                <li>Intenta el comando de nuevo</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Creado por <strong style="color: white;">Irina Ichim</strong></p>
+        <p>Guia de instalacion de n8n para AI Dev Lab</p>
+    </div>
+
+    <!-- Boton de volver arriba -->
+    <a href="#" class="scroll-to-top" id="scrollToTop" title="Volver arriba">^</a>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -218,6 +218,11 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
+.badge-n8n {
+    background: linear-gradient(135deg, #ff6d5a, #ff8a7a);
+    color: white;
+}
+
 /* Info Boxes */
 .info-box {
     padding: 25px;
